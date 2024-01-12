@@ -1,0 +1,18 @@
+{
+  "name": "ink-template",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun src/main.tsx"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "dependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.47",
+    "ink": "^4.4.1",
+    "react": "^18.2.0",
+    "typescript": "^5.3.3"
+  }
+}
