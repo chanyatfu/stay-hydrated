@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "../contexts/router-context";
 import { useStore } from "../stores/root-store";
 import { useInput } from "./useInput";
@@ -9,6 +9,7 @@ export function useEventHandler() {
   const { currentPath, setCurrentPath } = useRouter()
   const { store, storeDispatch } = useStore()
   const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume } = store
+  const buffer = useRef<number | null>(null)
 
   useEffect(() => {
 		const interval = setInterval(() => {
@@ -59,6 +60,19 @@ export function useEventHandler() {
         return;
       }
       case "water": {
+        if (chunk === 'c') {  // hard clear
+          buffer.current = store.remainingVolume
+          storeDispatch({ type: "SET_REMAINING_VOLUME", payload: 0 })
+          storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: true })
+        }
+        if (chunk === 'z') {  // undo
+          if (buffer.current === null) {
+            return
+          }
+          storeDispatch({ type: "SET_REMAINING_VOLUME", payload: buffer.current })
+          storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false })
+          buffer.current = null
+        }
         if (!isSettingVolume) {
           return
         }
