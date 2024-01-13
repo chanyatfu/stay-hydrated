@@ -87,7 +87,7 @@ function App() {
       <Box flexDirection="column">
         <Box borderStyle="classic" borderColor="green">
           {isSettingVolume ?
-            <Text>Set the volume of your bottle: {formatNumberToLiter(remainingVolume)}</Text>
+            <Text>Set the remaining volume: {formatNumberToLiter(remainingVolume)}</Text>
             :
             <Text>The total amount of water you drink today is {formatNumberToLiter(getTotalVolume(volumes) + (maxVolume - remainingVolume))}
             </Text>

@@ -6,12 +6,14 @@
     "start": "bun src/main.tsx"
   },
   "devDependencies": {
+    "@types/lokijs": "^1.5.14",
     "bun-types": "latest"
   },
   "dependencies": {
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.47",
     "ink": "^4.4.1",
+    "lokijs": "^1.5.12",
     "react": "^18.2.0",
     "typescript": "^5.3.3"
   }
