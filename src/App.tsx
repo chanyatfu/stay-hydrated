@@ -1,5 +1,5 @@
 import { Box, Text } from "ink";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Bottle from "./components/Bottle";
 import { getTotalVolume } from "./helpers/getTotalVolume";
 import { getRandomItem } from "./helpers/getRandomItem";
@@ -10,6 +10,8 @@ import { useInput } from "./hooks/useInput";
 import { ringBell } from "./helpers/ringBell";
 
 function App() {
+
+  const quote = useMemo(() => getRandomItem(waterQuotes), []);
 
   const [volumes, setVolumes] = useState<number[]>([]);
   const [maxVolume, setMaxVolume] = useState(660);
@@ -95,7 +97,7 @@ function App() {
         </Box>
         <Box borderStyle="classic" borderColor="green">
           {isSettingVolume ?
-            <Text>Adjust remaining water volume with Up/Down arrows, and press Space to confirm.</Text>
+            <Text>Adjust remaining water volume with Up/Down arrows, and press Enter to confirm.</Text>
             :
             <Text>Finish the current bottle in {getRemainingTimeForBottle(remainingVolume, waterPerHours)}</Text>
           }
@@ -108,7 +110,7 @@ function App() {
         <Bottle percent={remainingVolume / maxVolume} volume={maxVolume} />
       </Box>
       <Box borderStyle="classic" borderColor="green">
-        <Text>{getRandomItem(waterQuotes)}</Text>
+        <Text>{quote}</Text>
       </Box>
     </Box>
   )
