@@ -34,8 +34,8 @@
 To use Water Tracker CLI, clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/your-repo/water-tracker-cli.git
-cd water-tracker-cli
+git clone https://github.com/chanyatfu/stay-hydrated.git
+cd stay-hydrated
 npm install
 npm run start
 ```
