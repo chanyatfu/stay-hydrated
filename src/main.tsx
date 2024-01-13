@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from 'ink';
 import App from './App.tsx';
 import Loki from 'lokijs';
+import { RouterProvider } from "./contexts/router-context.tsx";
+import { StoreProvider } from "./stores/root-store.tsx";
 
 const db = new Loki('stay-hydrated.db', {
   autoload: true,
@@ -19,9 +21,12 @@ function databaseInitialize() {
   // Perform further operations like insert/find here or in another function
 }
 
-
 render(
   <React.StrictMode>
-    <App />
+    <StoreProvider>
+      <RouterProvider>
+        <App />
+      </RouterProvider>
+    </StoreProvider>
   </React.StrictMode>
 );

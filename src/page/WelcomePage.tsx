@@ -13,15 +13,13 @@ export default function WelcomePage() {
   ]
 
   return (
-    <Layout justifyContent="center" alignItems="center">
+    <>
       <Box flexDirection="column">
         {logo.map((line, index) => <Text key={index} color="green">{line}</Text>)}
       </Box>
       <Box>
-        <Text>
-          Press any key to start
-        </Text>
+        <Text>Press any key to start</Text>
       </Box>
-    </Layout>
+    </>
   )
 }

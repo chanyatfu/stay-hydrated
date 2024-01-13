@@ -9,16 +9,19 @@ import { getTotalVolume } from "../helpers/getTotalVolume";
 import getRemainingTimeForBottle from "../helpers/getRemainingTimeForBottle";
 import Bottle from "../components/Bottle";
 import Layout from "./layout";
+import { useStore } from "../stores/root-store";
 
 export default function MainPage() {
   const quote = useMemo(() => getRandomItem(waterQuotes), []);
 
-  const [volumes, setVolumes] = useState<number[]>([]);
-  const [maxVolume, setMaxVolume] = useState(660);
-  const [remainingVolume, setRemainingVolume] = useState(660)
-  const [waterPerHours, setWaterPerHours] = useState(400);
-  const [isInputActive, setIsInputActive] = useState(false);
-  const [isSettingVolume, setIsSettingVolume] = useState(false);
+  const { store, storeDispatch } = useStore()
+  const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume } = store
+
+  // const [volumes, setVolumes] = useState<number[]>([]);
+  // const [maxVolume, setMaxVolume] = useState(660);
+  // const [remainingVolume, setRemainingVolume] = useState(660)
+  // const [waterPerHours, setWaterPerHours] = useState(400);
+  // const [isSettingVolume, setIsSettingVolume] = useState(false);
 
   useEffect(() => {
 		const interval = setInterval(() => {
@@ -26,7 +29,7 @@ export default function MainPage() {
         return
       }
       if (remainingVolume >= 0) {
-        setRemainingVolume(prev => prev - 1)
+        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: remainingVolume - 1 })
       }
 
     }, 1)
@@ -51,23 +54,23 @@ export default function MainPage() {
         if (remainingVolume + changeAmount > maxVolume) {
           ringBell()
         }
-        setRemainingVolume(prev => Math.min(maxVolume, prev + changeAmount))
+        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.min(maxVolume, remainingVolume + changeAmount) })
         break;
       case '\x1b[B': // down arrow
-        if (remainingVolume - changeAmount < 0) {
+        if (store.remainingVolume - changeAmount < 0) {
           ringBell()
         }
-        setRemainingVolume(prev => Math.max(0, prev - changeAmount))
+        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.max(0, remainingVolume - changeAmount) })
         break;
       case '\r':
       case '\n':
       case '\r\n':
         if (remainingVolume > 0) {
-          setIsSettingVolume(false)
+          storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false })
         } else {
-          setRemainingVolume(maxVolume)
-          setVolumes(prev => [...prev, maxVolume])
-          setIsSettingVolume(false)
+          storeDispatch({ type: "SET_REMAINING_VOLUME", payload: maxVolume })
+          storeDispatch({ type: "ADD_BOTTLE", payload: maxVolume })
+          storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false })
         }
         break;
       default:
@@ -78,12 +81,12 @@ export default function MainPage() {
 
   useEffect(() => {
     if (remainingVolume <= 0 && !isSettingVolume) {
-      setIsSettingVolume(true);
+      storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: true })
     }
   }, [remainingVolume])
 
   return (
-    <Layout>
+    <>
       <Box flexDirection="column">
         <Box borderStyle="classic" borderColor="green">
           {isSettingVolume ?
@@ -110,6 +113,6 @@ export default function MainPage() {
       <Box borderStyle="classic" borderColor="green">
         <Text>{quote}</Text>
       </Box>
-    </Layout>
+    </>
   )
 }

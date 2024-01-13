@@ -1,4 +1,5 @@
 import { Box } from "ink";
+import Header from "../components/Header";
 
 type LayoutProps = {
   children: React.ReactNode
@@ -11,16 +12,21 @@ export default function Layout({
   alignItems
 }: LayoutProps) {
   return (
-    <Box
-      height={23}
-      justifyContent={justifyContent}
-      alignItems={alignItems}
-      flexDirection="column"
+    <Box flexDirection="column"
       borderStyle="round" borderColor="green"
-      paddingX={4} paddingY={1} margin={1}
-      rowGap={1}
+      padding={0}
     >
-      {children}
+      <Header />
+      <Box
+        height={23}
+        justifyContent={justifyContent}
+        alignItems={alignItems}
+        flexDirection="column"
+        paddingX={4} paddingY={1} margin={1}
+        rowGap={1}
+      >
+        {children}
+      </Box>
     </Box>
   )
 }
