@@ -8,7 +8,7 @@ export function useCounter(): [
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setCounter(previousCounter => previousCounter - 1);
-		}, 20);
+		}, 50);
 
 		return () => {
 			clearInterval(timer);

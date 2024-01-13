@@ -1,8 +1,11 @@
 import { Box, Text } from "ink";
-import { useId } from "react";
+import { padBoth } from "../helpers/padBoth";
 
-export default function Bottle({ percent }: { percent: number }) {
-
+type BottleProps = {
+  percent: number
+  volume: number
+}
+export default function Bottle({ percent, volume }: BottleProps) {
   percent = Math.max(0, Math.min(100, percent))
   let emptyBottle = [
     "  |=|  ",
@@ -14,10 +17,8 @@ export default function Bottle({ percent }: { percent: number }) {
     "|     |",
     "\\_____/",
   ]
-
   const filled = [
-    { index: 4, fraction: "|  v  |" },
-    // { index: 7, fraction: "\\_____/" },
+    { index: 4, fraction: `|${padBoth(volume.toString(), 5)}|` },
     { index: 7, fraction: "\\=====/" },
     ...[6, 5, 4, 3, 2].flatMap(index => [
       { index: index, fraction: "|_____|" },
@@ -26,15 +27,13 @@ export default function Bottle({ percent }: { percent: number }) {
     { index: 1, fraction: " /___\\ " },
     { index: 1, fraction: " /---\\ " },
   ]
-
   const fraction = Math.ceil( percent / (100 / filled.length + 1) )
   emptyBottle[filled[fraction].index] = filled[fraction].fraction
+  const color = percent === 0 ? 'green' : 'blue'
 
   return (
     <Box flexDirection="column">
-      {emptyBottle.map((line, index) =>
-        <Text key={index}>{line}</Text>
-      )}
+      {emptyBottle.map((line, index) => <Text key={index} color={color}>{line}</Text>)}
     </Box>
   )
 }
