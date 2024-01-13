@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-type Path = "welcome" | "water" | "settings";
+type Path = "welcome" | "water" | "history" | "settings";
 
 type Router = {
   currentPath: Path;
@@ -17,7 +17,7 @@ export const useRouter = () => useContext(RouterContext);
 export function RouterProvider({ children }: { children: React.ReactNode }) {
 
   const [currentPath, setCurrentPath] = useState<Path>("welcome");
-  
+
 
   return (
     <RouterContext.Provider value={{

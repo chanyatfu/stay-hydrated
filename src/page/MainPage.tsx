@@ -23,68 +23,6 @@ export default function MainPage() {
   // const [waterPerHours, setWaterPerHours] = useState(400);
   // const [isSettingVolume, setIsSettingVolume] = useState(false);
 
-  useEffect(() => {
-		const interval = setInterval(() => {
-      if (isSettingVolume) {
-        return
-      }
-      if (remainingVolume >= 0) {
-        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: remainingVolume - 1 })
-      }
-
-    }, 1)
-
-		return () => {
-			clearInterval(interval);
-		};
-	}, [remainingVolume, isSettingVolume]);
-
-
-  useInput((chunk: string) => {
-    if (chunk === '\u0003') { // Ctrl+C
-      process.exit();
-    }
-    if (!isSettingVolume) {
-      return
-    }
-
-    const changeAmount = 20
-    switch(chunk) {
-      case '\x1b[A':  // up arrow
-        if (remainingVolume + changeAmount > maxVolume) {
-          ringBell()
-        }
-        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.min(maxVolume, remainingVolume + changeAmount) })
-        break;
-      case '\x1b[B': // down arrow
-        if (store.remainingVolume - changeAmount < 0) {
-          ringBell()
-        }
-        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.max(0, remainingVolume - changeAmount) })
-        break;
-      case '\r':
-      case '\n':
-      case '\r\n':
-        if (remainingVolume > 0) {
-          storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false })
-        } else {
-          storeDispatch({ type: "SET_REMAINING_VOLUME", payload: maxVolume })
-          storeDispatch({ type: "ADD_BOTTLE", payload: maxVolume })
-          storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false })
-        }
-        break;
-      default:
-        break;
-    }
-  }, [maxVolume, remainingVolume, isSettingVolume])
-
-
-  useEffect(() => {
-    if (remainingVolume <= 0 && !isSettingVolume) {
-      storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: true })
-    }
-  }, [remainingVolume])
-
   return (
     <>
       <Box flexDirection="column">

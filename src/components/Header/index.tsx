@@ -17,6 +17,7 @@ export default function Header({ children }: HeaderProps) {
       flexDirection="row"
     >
       <HeaderItem path="water">Water</HeaderItem>
+      <HeaderItem path="history">History</HeaderItem>
       <HeaderItem path="settings">Setting</HeaderItem>
     </Box>
   )

@@ -1,5 +1,6 @@
 import { Box } from "ink";
 import Header from "../components/Header";
+import { useInput } from "../hooks/useInput";
 
 type LayoutProps = {
   children: React.ReactNode
@@ -11,6 +12,7 @@ export default function Layout({
   justifyContent,
   alignItems
 }: LayoutProps) {
+
   return (
     <Box flexDirection="column"
       borderStyle="round" borderColor="green"

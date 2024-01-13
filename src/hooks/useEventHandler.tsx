@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react";
-import { useInput } from "./hooks/useInput";
-import MainPage from "./page/MainPage";
-import WelcomePage from "./page/WelcomePage";
-import { useRouter } from "./contexts/router-context";
-import Layout from "./page/layout";
-import { Box } from "ink";
-import SettingPage from "./page/SettingPage";
-import HistoryPage from "./page/HistoryPage";
-import { useStore } from "./stores/root-store";
-import { ringBell } from "./helpers/ringBell";
+import { useEffect } from "react";
+import { useRouter } from "../contexts/router-context";
+import { useStore } from "../stores/root-store";
+import { useInput } from "./useInput";
+import { ringBell } from "../helpers/ringBell";
 
-function App() {
+export function useEventHandler() {
 
   const { currentPath, setCurrentPath } = useRouter()
   const { store, storeDispatch } = useStore()
@@ -104,24 +98,7 @@ function App() {
         break;
       }
     }
+    
   }, [])
 
-  switch (currentPath) {
-    case 'welcome':
-      return (
-        <Layout justifyContent="center" alignItems="center">
-          <WelcomePage />
-        </Layout>
-      )
-    case 'water':
-      return <Layout><MainPage /></Layout>
-    case 'history':
-      return <Layout><HistoryPage /></Layout>
-    case 'settings':
-      return <Layout><SettingPage /></Layout>
-
-  }
-
 }
-
-export default App;
