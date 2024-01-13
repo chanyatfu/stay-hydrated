@@ -31,7 +31,7 @@ export default function MainPage() {
           {isSettingVolume ?
             <Text>Adjust remaining water volume with Up/Down arrows, and press Enter to confirm.</Text>
             :
-            <Text>Finish the current bottle in {getRemainingTimeForBottle(remainingVolume, waterPerHours)}</Text>
+            <Text>Finish the current bottle in {getRemainingTimeForBottle(remainingVolume, waterPerHours)}. Press C to force clear the bottle and Z to revert.</Text>
           }
         </Box>
       </Box>

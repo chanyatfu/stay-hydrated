@@ -29,7 +29,8 @@ export default function Header({ children }: HeaderProps) {
       <Box flexDirection="row">
         <HeaderItem path="water">Water</HeaderItem>
         <HeaderItem path="history">History</HeaderItem>
-        <HeaderItem path="settings">Setting</HeaderItem>
+        <HeaderItem path="settings">Settings</HeaderItem>
+        <HeaderItem path="tips">Tips</HeaderItem>
       </Box>
       <Box paddingTop={1} paddingLeft={2} paddingRight={2}>
         <Text color="green">Daily Target reached: <Text color={targetColor}>{dailyTargetReached}%</Text></Text>

@@ -53,6 +53,10 @@ export function useEventHandler() {
         setCurrentPath('settings')
         return;
       }
+      case '4': {
+        setCurrentPath('tips')
+        return;
+      }
     }
     switch(currentPath) {
       case "welcome": {

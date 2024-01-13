@@ -10,6 +10,7 @@ import HistoryPage from "./page/HistoryPage";
 import { useStore } from "./stores/root-store";
 import { ringBell } from "./helpers/ringBell";
 import { useEventHandler } from "./hooks/useEventHandler";
+import TipsPage from "./page/TipsPage";
 
 function App() {
 
@@ -32,6 +33,8 @@ function App() {
       return <Layout><HistoryPage /></Layout>
     case 'settings':
       return <Layout><SettingPage /></Layout>
+    case 'tips':
+      return <Layout><TipsPage /></Layout>
 
   }
 
