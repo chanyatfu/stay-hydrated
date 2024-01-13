@@ -1,7 +1,8 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { getRandomItem } from "../helpers/getRandomItem";
 import { waterQuotes } from "../water-quotes";
-import { dailyCollection, db } from "../database";
+import { useDatabase } from "../database";
+// import { dailyCollection, db } from "../database";
 
 type Store = {
   volumes: number[];
@@ -112,35 +113,41 @@ const StoreContext = createContext<StoreContextType>({
 export const useStore = () => useContext(StoreContext);
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
+  const { isDatabaseLoaded, db, dailyCollection } = useDatabase();
   const [store, storeDispatch] = useReducer(storeReducer, initialStore)
 
   useEffect(() => {
+    if (!isDatabaseLoaded || !dailyCollection) return;
+
     // Load data from the database when the application starts
-    if (dailyCollection === undefined) return;
     const today = new Date().toISOString().split('T')[0];
     const storedData = dailyCollection.findOne({ date: today });
-    console.log(storedData)
+    console.log(storedData);
 
     if (storedData) {
       storeDispatch({ type: 'LOAD_STORED_DATA', payload: storedData.store });
     }
-  }, [dailyCollection]);
+  }, [isDatabaseLoaded, dailyCollection]);
 
   useEffect(() => {
     // Save data to the database whenever the store changes
-    if (dailyCollection === undefined) return;
+    if (!isDatabaseLoaded || !dailyCollection) return;
     const today = new Date().toISOString().split('T')[0];
     let dataEntry = dailyCollection.findOne({ date: today });
 
     if (dataEntry) {
+      // If an entry for today exists, update it
       dataEntry.store = store;
       dailyCollection.update(dataEntry);
     } else {
+      // If no entry exists for today, create a new one
       dailyCollection.insert({ date: today, store });
     }
 
-    db.saveDatabase();
-  }, [store, dailyCollection]);
+    if (db) {
+      db.saveDatabase();
+    }
+  }, [store, isDatabaseLoaded, dailyCollection]);
 
   return (
     <StoreContext.Provider value={{store, storeDispatch}}>

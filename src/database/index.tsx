@@ -1,18 +1,39 @@
 import Loki, { Collection } from 'lokijs';
-import { useState } from "react";
+import { useState, useEffect, createContext, useContext } from 'react';
 
-export let db = new Loki('dailyData.db', {
-  autoload: true,
-  autoloadCallback: databaseInitialize,
-  autosave: true,
-  autosaveInterval: 4000
+const DatabaseContext = createContext({
+  isDatabaseLoaded: false,
+  db: null as Loki | null,
+  dailyCollection: null as Collection<any> | null,
 });
 
-export let dailyCollection: Collection<any>;
+export const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isDatabaseLoaded, setIsDatabaseLoaded] = useState(false);
+  const [db, setDb] = useState<Loki | null>(null);
+  const [dailyCollection, setDailyCollection] = useState<Collection<any> | null>(null);
 
-function databaseInitialize() {
-  dailyCollection = db.getCollection('daily');
-  if (dailyCollection === null) {
-    dailyCollection = db.addCollection('daily');
-  }
-}
+  useEffect(() => {
+    const localDb = new Loki('dailyData.db', {
+      autoload: true,
+      autoloadCallback: () => {
+        let collection = localDb.getCollection('daily');
+        if (!collection) {
+          collection = localDb.addCollection('daily');
+        }
+        setDailyCollection(collection);
+        setDb(localDb);
+        setIsDatabaseLoaded(true);
+      },
+      autosave: true,
+      autosaveInterval: 4000
+    });
+  }, []);
+
+  return (
+    <DatabaseContext.Provider value={{ isDatabaseLoaded, db, dailyCollection }}>
+      {children}
+    </DatabaseContext.Provider>
+  );
+};
+
+export const useDatabase = () => useContext(DatabaseContext);
