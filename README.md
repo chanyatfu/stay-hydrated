@@ -37,3 +37,5 @@ To use Water Tracker CLI, clone the repository and install the dependencies:
 git clone https://github.com/your-repo/water-tracker-cli.git
 cd water-tracker-cli
 npm install
+npm run start
+```
