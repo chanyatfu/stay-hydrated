@@ -6,22 +6,71 @@ import { getTotalVolume } from "./helpers/getTotalVolume";
 import { getRandomItem } from "./helpers/getRandomItem";
 import { waterQuotes } from "./water-quotes";
 import getRemainingTimeForBottle from "./helpers/getRemainingTimeForBottle";
+import { formatNumberToLiter } from "./helpers/formatNumberToLiter";
+import { useInput } from "./hooks/useInput";
 
 function App() {
 
-	const [counter, setCounter] = useCounter();
   const [volumes, setVolumes] = useState<number[]>([]);
-  const [currentVolume, setCurrentVolume] = useState(660);
+  const [maxVolume, setMaxVolume] = useState(660);
+  const [remainingVolume, setRemainingVolume] = useState(660)
   const [waterPerHours, setWaterPerHours] = useState(400);
-  const [bottleStartTime, setBottleStartTime] = useState(Date.now())
+  const [isInputActive, setIsInputActive] = useState(false);
+  const [isSettingVolume, setIsSettingVolume] = useState(false);
 
   useEffect(() => {
-    if (counter < 0) {
-      setCounter(100)
-      setVolumes(prev => [...prev, currentVolume])
-      setBottleStartTime(Date.now())
+		const interval = setInterval(() => {
+      if (isSettingVolume) {
+        return
+      }
+      if (remainingVolume >= 0) {
+        setRemainingVolume(prev => prev - 1)
+      }
+
+    }, 10)
+
+		return () => {
+			clearInterval(interval);
+		};
+	}, [remainingVolume, isSettingVolume]);
+
+
+  useInput((chunk: string) => {
+    if (chunk === '\u0003') { // Ctrl+C
+      process.exit();
     }
-  }, [counter, setCounter])
+    if (!isSettingVolume) {
+      return
+    }
+    switch(chunk) {
+      case '\x1b[A':  // up arrow
+        setRemainingVolume(prev => Math.min(maxVolume, prev + 10))
+        break;
+      case '\x1b[B': // down arrow
+        setRemainingVolume(prev => Math.max(0, prev - 10))
+        break;
+      case '\r':
+      case '\n':
+      case '\r\n':
+        if (remainingVolume > 0) {
+          setIsSettingVolume(false)
+        } else {
+          setRemainingVolume(maxVolume)
+          setVolumes(prev => [...prev, maxVolume])
+          setIsSettingVolume(false)
+        }
+        break;
+      default:
+        break;
+    }
+  }, [maxVolume, remainingVolume, isSettingVolume])
+
+
+  useEffect(() => {
+    if (remainingVolume <= 0) {
+      setIsSettingVolume(true);
+    }
+  }, [remainingVolume])
 
   return (
     <Box flexDirection="column"
@@ -31,17 +80,27 @@ function App() {
     >
       <Box flexDirection="column">
         <Box borderStyle="classic" borderColor="green">
-          <Text>The total amount of water you drink today is: {getTotalVolume(volumes)}</Text>
+          {isSettingVolume ?
+            <Text>Set the volume of your bottle: {formatNumberToLiter(remainingVolume)}</Text>
+            :
+            <Text>The total amount of water you drink today is:
+              {formatNumberToLiter(getTotalVolume(volumes) + (maxVolume - remainingVolume))}
+            </Text>
+          }
         </Box>
         <Box borderStyle="classic" borderColor="green">
-          <Text>Finish the current bottle in: {getRemainingTimeForBottle(currentVolume * (counter/100), waterPerHours)}</Text>
+          {isSettingVolume ?
+            <Text>Did you drink all your water? use Up/down arrow to adjust the remaining volume and space to confirm</Text>
+            :
+            <Text>Finish the current bottle in: {getRemainingTimeForBottle(remainingVolume, waterPerHours)}</Text>
+          }
         </Box>
       </Box>
       <Box flexDirection="row">
         {volumes.map((volume, index) =>
           <Bottle key={index} volume={volume} percent={0} />
         )}
-        <Bottle percent={counter} volume={currentVolume} />
+        <Bottle percent={remainingVolume / maxVolume} volume={maxVolume} />
       </Box>
       <Box borderStyle="classic" borderColor="green">
         <Text>{getRandomItem(waterQuotes)}</Text>

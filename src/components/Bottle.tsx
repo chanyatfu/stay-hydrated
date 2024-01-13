@@ -6,7 +6,7 @@ type BottleProps = {
   volume: number
 }
 export default function Bottle({ percent, volume }: BottleProps) {
-  percent = Math.max(0, Math.min(100, percent))
+  percent = Math.max(0, Math.min(1, percent))
   let emptyBottle = [
     "  |=|  ",
     " /   \\ ",
@@ -27,7 +27,7 @@ export default function Bottle({ percent, volume }: BottleProps) {
     { index: 1, fraction: " /___\\ " },
     { index: 1, fraction: " /---\\ " },
   ]
-  const fraction = Math.ceil( percent / (100 / filled.length + 1) )
+  const fraction = Math.ceil( (100 * percent) / (100 / filled.length + 1) )
   emptyBottle[filled[fraction].index] = filled[fraction].fraction
   const color = percent === 0 ? 'green' : 'blue'
 

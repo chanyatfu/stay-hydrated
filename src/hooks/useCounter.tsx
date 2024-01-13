@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export function useCounter(): [
   number, React.Dispatch<React.SetStateAction<number>>
 ] {
-	const [counter, setCounter] = useState(100);
+	const [counter, setCounter] = useState(0);
 
 	useEffect(() => {
 		const timer = setInterval(() => {
