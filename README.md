@@ -13,12 +13,12 @@
 
 ## How to Use
 
-1. **Setting the Bottle Volume**: 
+1. **Setting the Bottle Volume**:
    - When the timer for the current bottle runs out, the app will prompt you to set the remaining volume of this bottle in case you haven't finished it.
    - Use the Up and Down arrow keys to adjust the remaining volume of the bottle.
    - Press Enter to confirm the volume.
 
-2. **Tracking Your Intake**: 
+2. **Tracking Your Intake**:
    - The main screen shows the total amount of water you have consumed.
    - It also displays the time remaining to finish your current bottle based on your drinking rate.
 
@@ -26,7 +26,7 @@
    - The app provides visual feedback with each bottle displayed on the screen.
    - Color coding indicates whether a bottle is full, partially consumed, or empty.
 
-4. **Exit the Application**: 
+4. **Exit the Application**:
    - You can exit the application at any time by pressing `Ctrl+C`.
 
 ## Installation
@@ -36,6 +36,6 @@ To use Water Tracker CLI, clone the repository and install the dependencies:
 ```bash
 git clone https://github.com/chanyatfu/stay-hydrated.git
 cd stay-hydrated
-npm install
-npm run start
+bun install
+bun start
 ```
