@@ -1,6 +1,7 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { getRandomItem } from "../helpers/getRandomItem";
 import { waterQuotes } from "../water-quotes";
+import { dailyCollection, db } from "../database";
 
 type Store = {
   volumes: number[];
@@ -34,6 +35,7 @@ type StoreAction =
   | { type: "SET_QUOTE", payload: string }
   | { type: "TOGGLE_SOUND" }
   | { type: "SET_DAILY_TARGET", payload: number }
+  | { type: "LOAD_STORED_DATA", payload: Store }
 
 function storeReducer(state: Store, action: StoreAction) {
   switch (action.type) {
@@ -85,13 +87,17 @@ function storeReducer(state: Store, action: StoreAction) {
         dailyTarget: action.payload
       }
     }
+    case "LOAD_STORED_DATA": {
+      return {
+        ...action.payload
+      }
+    }
     default: {
       throw new Error("Unhandled action type")
     }
 
   }
 }
-
 
 type StoreContextType = {
   store: Store
@@ -107,6 +113,34 @@ export const useStore = () => useContext(StoreContext);
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [store, storeDispatch] = useReducer(storeReducer, initialStore)
+
+  useEffect(() => {
+    // Load data from the database when the application starts
+    if (dailyCollection === undefined) return;
+    const today = new Date().toISOString().split('T')[0];
+    const storedData = dailyCollection.findOne({ date: today });
+    console.log(storedData)
+
+    if (storedData) {
+      storeDispatch({ type: 'LOAD_STORED_DATA', payload: storedData.store });
+    }
+  }, [dailyCollection]);
+
+  useEffect(() => {
+    // Save data to the database whenever the store changes
+    if (dailyCollection === undefined) return;
+    const today = new Date().toISOString().split('T')[0];
+    let dataEntry = dailyCollection.findOne({ date: today });
+
+    if (dataEntry) {
+      dataEntry.store = store;
+      dailyCollection.update(dataEntry);
+    } else {
+      dailyCollection.insert({ date: today, store });
+    }
+
+    db.saveDatabase();
+  }, [store, dailyCollection]);
 
   return (
     <StoreContext.Provider value={{store, storeDispatch}}>
