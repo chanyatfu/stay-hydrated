@@ -1,4 +1,4 @@
-# ink-template
+# Stay Hydrated
 
 To install dependencies:
 
