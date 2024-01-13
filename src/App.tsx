@@ -1,6 +1,5 @@
 import { Box, Text } from "ink";
 import { useEffect, useState } from "react";
-import { useCounter } from "./hooks/useCounter";
 import Bottle from "./components/Bottle";
 import { getTotalVolume } from "./helpers/getTotalVolume";
 import { getRandomItem } from "./helpers/getRandomItem";
