@@ -9,6 +9,7 @@ type Store = {
   waterPerHours: number;
   isSettingVolume: boolean;
   quote: string;
+  isSoundOn: boolean;
 }
 
 const initialStore = {
@@ -17,7 +18,8 @@ const initialStore = {
   remainingVolume: 660,
   waterPerHours: 400,
   isSettingVolume: false,
-  quote: getRandomItem(waterQuotes)
+  quote: getRandomItem(waterQuotes),
+  isSoundOn: true,
 }
 
 
@@ -28,6 +30,7 @@ type StoreAction =
   | { type: "SET_WATER_PER_HOURS", payload: number }
   | { type: "SET_IS_SETTING_VOLUME", payload: boolean }
   | { type: "SET_QUOTE", payload: string }
+  | { type: "TOGGLE_SOUND" }
 
 function storeReducer(state: Store, action: StoreAction) {
   switch (action.type) {
@@ -65,6 +68,12 @@ function storeReducer(state: Store, action: StoreAction) {
       return {
         ...state,
         quote: action.payload
+      }
+    }
+    case "TOGGLE_SOUND": {
+      return {
+        ...state,
+        isSoundOn: !state.isSoundOn
       }
     }
     default: {

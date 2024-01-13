@@ -93,6 +93,12 @@ export function useEventHandler() {
         }
         break;
       }
+      case "history": {
+        break;
+      }
+      case "settings": {
+        break;
+      }
 
     }
   }, [maxVolume, remainingVolume, isSettingVolume, currentPath])
