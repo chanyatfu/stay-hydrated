@@ -23,7 +23,7 @@ export function useEventHandler() {
         storeDispatch({ type: "SET_REMAINING_VOLUME", payload: remainingVolume - 1 })
       }
 
-    }, 1)
+    }, 10)
 
 		return () => {
 			clearInterval(interval);
