@@ -89,8 +89,7 @@ function App() {
           {isSettingVolume ?
             <Text>Set the volume of your bottle: {formatNumberToLiter(remainingVolume)}</Text>
             :
-            <Text>The total amount of water you drink today is:
-              {formatNumberToLiter(getTotalVolume(volumes) + (maxVolume - remainingVolume))}
+            <Text>The total amount of water you drink today is {formatNumberToLiter(getTotalVolume(volumes) + (maxVolume - remainingVolume))}
             </Text>
           }
         </Box>
@@ -98,7 +97,7 @@ function App() {
           {isSettingVolume ?
             <Text>Did you drink all your water? use Up/down arrow to adjust the remaining volume and space to confirm</Text>
             :
-            <Text>Finish the current bottle in: {getRemainingTimeForBottle(remainingVolume, waterPerHours)}</Text>
+            <Text>Finish the current bottle in {getRemainingTimeForBottle(remainingVolume, waterPerHours)}</Text>
           }
         </Box>
       </Box>
