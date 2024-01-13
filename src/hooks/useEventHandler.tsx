@@ -16,6 +16,9 @@ export function useEventHandler() {
         return
       }
       if (remainingVolume >= 0) {
+        if (currentPath === 'welcome') {
+          return
+        }
         storeDispatch({ type: "SET_REMAINING_VOLUME", payload: remainingVolume - 1 })
       }
 
@@ -24,81 +27,74 @@ export function useEventHandler() {
 		return () => {
 			clearInterval(interval);
 		};
-	}, [remainingVolume, isSettingVolume]);
-
-
-
-  useInput((chunk: string) => {
-    if (chunk === '\u0003') { // Ctrl+C
-      process.exit();
-    }
-    if (!isSettingVolume) {
-      return
-    }
-
-    const changeAmount = 20
-    switch(chunk) {
-      case '\x1b[A':  // up arrow
-        if (remainingVolume + changeAmount > maxVolume) {
-          ringBell()
-        }
-        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.min(maxVolume, remainingVolume + changeAmount) })
-        break;
-      case '\x1b[B': // down arrow
-        if (store.remainingVolume - changeAmount < 0) {
-          ringBell()
-        }
-        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.max(0, remainingVolume - changeAmount) })
-        break;
-      case '\r':
-      case '\n':
-      case '\r\n':
-        if (remainingVolume > 0) {
-          storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false })
-        } else {
-          storeDispatch({ type: "SET_REMAINING_VOLUME", payload: maxVolume })
-          storeDispatch({ type: "ADD_BOTTLE", payload: maxVolume })
-          storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false })
-        }
-        break;
-      default:
-        break;
-    }
-  }, [maxVolume, remainingVolume, isSettingVolume])
-
+	}, [remainingVolume, isSettingVolume, currentPath]);
 
   useEffect(() => {
     if (remainingVolume <= 0 && !isSettingVolume) {
       storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: true })
     }
-  }, [remainingVolume])
+  }, [remainingVolume, isSettingVolume])
 
   useInput((chunk: string) => {
-    if (currentPath === 'welcome') {
-      if (chunk === '\u0003') { // Ctrl+C
-        process.exit();
-      } else {
-        setCurrentPath('water');
-      }
+    if (chunk === '\u0003') { // Ctrl+C
+      process.exit();
     }
-  }, [])
-
-  useInput((chunk: string) => {
     switch (chunk) {
       case '1': {
         setCurrentPath('water')
-        break;
+        return;
       }
       case '2': {
         setCurrentPath('history')
-        break;
+        return;
       }
       case '3': {
         setCurrentPath('settings')
-        break;
+        return;
       }
     }
-    
-  }, [])
+    switch(currentPath) {
+      case "welcome": {
+        setCurrentPath('water');
+        return;
+      }
+      case "water": {
+        if (!isSettingVolume) {
+          return
+        }
+
+        const changeAmount = 20
+        switch(chunk) {
+          case '\x1b[A':  // up arrow
+            if (remainingVolume + changeAmount > maxVolume) {
+              ringBell()
+            }
+            storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.min(maxVolume, remainingVolume + changeAmount) })
+            break;
+          case '\x1b[B': // down arrow
+            if (store.remainingVolume - changeAmount < 0) {
+              ringBell()
+            }
+            storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.max(0, remainingVolume - changeAmount) })
+            break;
+          case '\r':
+          case '\n':
+          case '\r\n':
+            if (remainingVolume > 0) {
+              storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false })
+            } else {
+              storeDispatch({ type: "SET_REMAINING_VOLUME", payload: maxVolume })
+              storeDispatch({ type: "ADD_BOTTLE", payload: maxVolume })
+              storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false })
+            }
+            break;
+          default:
+            break;
+        }
+        break;
+      }
+
+    }
+  }, [maxVolume, remainingVolume, isSettingVolume, currentPath])
 
 }

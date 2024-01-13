@@ -12,16 +12,9 @@ import Layout from "./layout";
 import { useStore } from "../stores/root-store";
 
 export default function MainPage() {
-  const quote = useMemo(() => getRandomItem(waterQuotes), []);
+  const { store } = useStore()
+  const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume, quote } = store
 
-  const { store, storeDispatch } = useStore()
-  const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume } = store
-
-  // const [volumes, setVolumes] = useState<number[]>([]);
-  // const [maxVolume, setMaxVolume] = useState(660);
-  // const [remainingVolume, setRemainingVolume] = useState(660)
-  // const [waterPerHours, setWaterPerHours] = useState(400);
-  // const [isSettingVolume, setIsSettingVolume] = useState(false);
 
   return (
     <>
