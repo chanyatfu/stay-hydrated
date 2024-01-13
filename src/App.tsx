@@ -95,7 +95,7 @@ function App() {
         </Box>
         <Box borderStyle="classic" borderColor="green">
           {isSettingVolume ?
-            <Text>Did you drink all your water? use Up/down arrow to adjust the remaining volume and space to confirm</Text>
+            <Text>Adjust remaining water volume with Up/Down arrows, and press Space to confirm.</Text>
             :
             <Text>Finish the current bottle in {getRemainingTimeForBottle(remainingVolume, waterPerHours)}</Text>
           }
