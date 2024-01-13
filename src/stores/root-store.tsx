@@ -10,6 +10,7 @@ type Store = {
   isSettingVolume: boolean;
   quote: string;
   isSoundOn: boolean;
+  dailyTarget: number;
 }
 
 const initialStore = {
@@ -20,6 +21,7 @@ const initialStore = {
   isSettingVolume: false,
   quote: getRandomItem(waterQuotes),
   isSoundOn: true,
+  dailyTarget: 3000.
 }
 
 
@@ -31,6 +33,7 @@ type StoreAction =
   | { type: "SET_IS_SETTING_VOLUME", payload: boolean }
   | { type: "SET_QUOTE", payload: string }
   | { type: "TOGGLE_SOUND" }
+  | { type: "SET_DAILY_TARGET", payload: number }
 
 function storeReducer(state: Store, action: StoreAction) {
   switch (action.type) {
@@ -74,6 +77,12 @@ function storeReducer(state: Store, action: StoreAction) {
       return {
         ...state,
         isSoundOn: !state.isSoundOn
+      }
+    }
+    case "SET_DAILY_TARGET": {
+      return {
+        ...state,
+        dailyTarget: action.payload
       }
     }
     default: {

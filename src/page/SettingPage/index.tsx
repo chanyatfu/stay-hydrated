@@ -18,6 +18,7 @@ export default function SettingPage() {
     { title: "Bottle capacity", value: formatNumberToLiter(store.maxVolume) },
     { title: "Water per hour", value: formatNumberToLiter(store.waterPerHours) },
     { title: "Sound", value: store.isSoundOn ? "ON" : "OFF" },
+    { title: "Daily Target", value: formatNumberToLiter(store.dailyTarget) }
   ]
 
   const [hoveredIndex, setHoveredIndex] = useState(0);
@@ -40,6 +41,10 @@ export default function SettingPage() {
               storeDispatch({ type: "TOGGLE_SOUND" })
               break;
             }
+            case 3: {
+              storeDispatch({ type: "SET_DAILY_TARGET", payload: store.dailyTarget + 20 })
+              break;
+            }
           }
         } else {
           setHoveredIndex((hoveredIndex + settingItemData.length - 1) % settingItemData.length)
@@ -59,6 +64,10 @@ export default function SettingPage() {
             }
             case 2: {
               storeDispatch({ type: "TOGGLE_SOUND" })
+              break;
+            }
+            case 3: {
+              storeDispatch({ type: "SET_DAILY_TARGET", payload: store.dailyTarget - 20 })
               break;
             }
           }

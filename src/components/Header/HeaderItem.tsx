@@ -3,7 +3,7 @@ import { useRouter } from "../../contexts/router-context";
 
 type HeaderItem = {
   children?: React.ReactNode
-  path: string
+  path?: string
 }
 export default function HeaderItem({
   path,
