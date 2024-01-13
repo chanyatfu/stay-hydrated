@@ -8,6 +8,7 @@ import { waterQuotes } from "./water-quotes";
 import getRemainingTimeForBottle from "./helpers/getRemainingTimeForBottle";
 import { formatNumberToLiter } from "./helpers/formatNumberToLiter";
 import { useInput } from "./hooks/useInput";
+import { ringBell } from "./helpers/ringBell";
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
         setRemainingVolume(prev => prev - 1)
       }
 
-    }, 10)
+    }, 1)
 
 		return () => {
 			clearInterval(interval);
@@ -44,9 +45,15 @@ function App() {
     }
     switch(chunk) {
       case '\x1b[A':  // up arrow
+        if (remainingVolume + 10 > maxVolume) {
+          ringBell()
+        }
         setRemainingVolume(prev => Math.min(maxVolume, prev + 10))
         break;
       case '\x1b[B': // down arrow
+        if (remainingVolume - 10 < 0) {
+          ringBell()
+        }
         setRemainingVolume(prev => Math.max(0, prev - 10))
         break;
       case '\r':
@@ -67,7 +74,7 @@ function App() {
 
 
   useEffect(() => {
-    if (remainingVolume <= 0) {
+    if (remainingVolume <= 0 && !isSettingVolume) {
       setIsSettingVolume(true);
     }
   }, [remainingVolume])
