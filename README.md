@@ -14,7 +14,7 @@
 ## How to Use
 
 1. **Setting the Bottle Volume**: 
-   - When you finish a bottle of water, the app will prompt you to set the volume of your next bottle.
+   - When the timer for the current bottle runs out, the app will prompt you to set the remaining volume of this bottle in case you haven't finished it.
    - Use the Up and Down arrow keys to adjust the remaining volume of the bottle.
    - Press Enter to confirm the volume.
 
