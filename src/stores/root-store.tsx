@@ -1,8 +1,7 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { getRandomItem } from "../helpers/getRandomItem";
 import { waterQuotes } from "../water-quotes";
 import { useDatabase } from "../database";
-// import { dailyCollection, db } from "../database";
 
 type Store = {
   volumes: number[];
@@ -16,12 +15,12 @@ type Store = {
 }
 
 const initialStore = {
-  volumes: [],
+  volumes: new Array<number>,
   maxVolume: 660,
   remainingVolume: 660,
   waterPerHours: 400,
   isSettingVolume: false,
-  quote: getRandomItem(waterQuotes),
+  quote: getRandomItem(waterQuotes) || "",
   isSoundOn: true,
   dailyTarget: 3000.
 }
