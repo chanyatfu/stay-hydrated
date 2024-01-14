@@ -84,13 +84,13 @@ export function useEventHandler() {
         const changeAmount = 20
         switch(chunk) {
           case '\x1b[A':  // up arrow
-            if (remainingVolume + changeAmount > maxVolume) {
+            if (remainingVolume + changeAmount > maxVolume && store.isSoundOn) {
               ringBell()
             }
             storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.min(maxVolume, remainingVolume + changeAmount) })
             break;
           case '\x1b[B': // down arrow
-            if (store.remainingVolume - changeAmount < 0) {
+            if (store.remainingVolume - changeAmount < 0 && store.isSoundOn) {
               ringBell()
             }
             storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.max(0, remainingVolume - changeAmount) })
