@@ -1,6 +1,6 @@
 {
   "name": "stay-hydrated",
-  "module": "index.ts",
+  "module": "src/main.tsx",
   "type": "module",
   "scripts": {
     "start": "bun src/main.tsx"
