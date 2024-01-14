@@ -20,10 +20,10 @@ export function useEventHandler() {
         if (currentPath === 'welcome') {
           return
         }
-        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: remainingVolume - 1 })
+        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: remainingVolume - store.waterPerHours / 3600 })
       }
 
-    }, 10)
+    }, 1000)
 
 		return () => {
 			clearInterval(interval);
