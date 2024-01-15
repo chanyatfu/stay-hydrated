@@ -21,7 +21,7 @@ export default function MainPage() {
   return (
     <>
       <Box flexDirection="column">
-        <Box borderStyle="classic" borderColor="green">
+        <Box borderStyle="classic" borderColor="green" overflow="hidden" height={3}>
           {isSettingVolume ? (
             <Text>
               Set the remaining volume: {formatNumberToLiter(remainingVolume)}
@@ -35,7 +35,7 @@ export default function MainPage() {
             </Text>
           )}
         </Box>
-        <Box borderStyle="classic" borderColor="green">
+        <Box borderStyle="classic" borderColor="green" overflow="hidden">
           {isSettingVolume ? (
             <Text>
               Adjust remaining water volume with Up/Down arrows, and press Enter
@@ -51,12 +51,14 @@ export default function MainPage() {
         </Box>
       </Box>
       <Box flexDirection="row">
-        {volumes.map((volume, index) => (
-          <Bottle key={index} volume={volume} percent={0} />
-        ))}
+        <Box flexDirection="row" overflow="hidden">
+          {volumes.map((volume, index) => (
+            <Bottle key={index} volume={volume} percent={0} />
+          ))}
+        </Box>
         <Bottle percent={remainingVolume / maxVolume} volume={maxVolume} />
       </Box>
-      <Box borderStyle="classic" borderColor="green">
+      <Box borderStyle="classic" borderColor="green" overflow="hidden">
         <Text>{quote}</Text>
       </Box>
     </>

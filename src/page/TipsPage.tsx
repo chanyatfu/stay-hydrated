@@ -13,7 +13,7 @@ export default function TipsPage() {
 
   return (
     <>
-      <Box flexDirection="column" rowGap={1}>
+      <Box flexDirection="column" rowGap={1} overflow="hidden">
         {tips.map((tip, index) => (
           <Box key={index}>
             <Text>

@@ -55,11 +55,11 @@ export default function HistoryPage() {
       <Box flexDirection="column" rowGap={1}>
         {recentEntries.length === 0 ? (
           <Box>
-            <Text>No data available</Text>
+            <Text wrap="truncate-end">No data available</Text>
           </Box>
         ) : (
           <Box>
-            <Text>Recent 7 days</Text>
+            <Text wrap="truncate-end">Recent 7 days</Text>
           </Box>
         )}
         {recentEntries.map((entry, index) => (
