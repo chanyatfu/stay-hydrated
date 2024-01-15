@@ -22,7 +22,8 @@ bun start
 ## Features
 
 - **Persistence Storage**: Ensures your data is saved and retrievable even after closing and reopening the app.
-- **Background Tracking**: Continues tracking your water intake even when not actively using the app.  
+- **Background Tracking**: Continues tracking your water intake even when not actively using the app.
+- **Audio Alerts for Water Intake**: Provides auditory notifications to remind you when it's time to complete your current water bottle.
 - **Interactive Water Bottle Display**: Visual representation of water bottles to show your daily water intake.
 - **Customizable Bottle Volume**: Adjust the volume of each bottle to match your actual water bottle.
 - **Water Consumption Tracker**: Tracks the total volume of water you have consumed during the day.
