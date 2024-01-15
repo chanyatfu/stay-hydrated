@@ -1,13 +1,15 @@
 import { Box, Text } from "ink";
-import { useRouter } from "../../contexts/router-context";
+import { useRouter } from "contexts/router-context";
 
 type HeaderItem = {
   children?: React.ReactNode
   path?: string
+  accent?: boolean
 }
 export default function HeaderItem({
   path,
   children,
+  accent = false,
 }: HeaderItem) {
 
   const { currentPath } = useRouter()
@@ -16,7 +18,7 @@ export default function HeaderItem({
     <Box
       paddingTop={1} paddingLeft={2} paddingRight={2}
     >
-      <Text dimColor={currentPath !== path} color="green">{children}</Text>
+      <Text dimColor={currentPath !== path} color={accent ? "red" : "green"}>{children}</Text>
     </Box>
   )
 }

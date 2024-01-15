@@ -1,5 +1,4 @@
 import { Box, Text } from "ink";
-import Layout from "./layout";
 
 export default function WelcomePage() {
 

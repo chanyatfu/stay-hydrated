@@ -1,9 +1,8 @@
-import { Box, Text } from "ink";
-import { useInput } from "../../hooks/useInput";
+import { useInput } from "hooks/useInput";
 import SettingItem from "./SettingItem";
 import { useState } from "react";
-import { useStore } from "../../stores/root-store";
-import { formatNumberToLiter } from "../../helpers/formatNumberToLiter";
+import { useStore } from "stores/root-store";
+import { formatNumberToLiter } from "helpers";
 
 type SettingItemData = {
   title: string
@@ -18,7 +17,8 @@ export default function SettingPage() {
     { title: "Bottle capacity", value: formatNumberToLiter(store.maxVolume) },
     { title: "Water per hour", value: formatNumberToLiter(store.waterPerHours) },
     { title: "Sound", value: store.isSoundOn ? "ON" : "OFF" },
-    { title: "Daily Target", value: formatNumberToLiter(store.dailyTarget) }
+    { title: "Daily Target", value: formatNumberToLiter(store.dailyTarget) },
+    { title: "Run in background", value: store.runInBackground ? "ON" : "OFF"},
   ]
 
   const [hoveredIndex, setHoveredIndex] = useState(0);
@@ -45,6 +45,9 @@ export default function SettingPage() {
               storeDispatch({ type: "SET_DAILY_TARGET", payload: store.dailyTarget + 20 })
               break;
             }
+            case 4: {
+              storeDispatch({ type: "TOGGLE_RUN_IN_BACKGROUND" })
+            }
           }
         } else {
           setHoveredIndex((hoveredIndex + settingItemData.length - 1) % settingItemData.length)
@@ -69,6 +72,9 @@ export default function SettingPage() {
             case 3: {
               storeDispatch({ type: "SET_DAILY_TARGET", payload: store.dailyTarget - 20 })
               break;
+            }
+            case 4: {
+              storeDispatch({ type: "TOGGLE_RUN_IN_BACKGROUND" })
             }
           }
         } else {

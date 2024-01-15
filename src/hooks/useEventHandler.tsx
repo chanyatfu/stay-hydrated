@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { useRouter } from "../contexts/router-context";
+import { useRouter } from "contexts/router-context";
 import { useStore } from "../stores/root-store";
 import { useInput } from "./useInput";
-import { ringBell } from "../helpers/ringBell";
+import { ringBell } from "helpers";
 
 export function useEventHandler() {
 
@@ -55,6 +55,10 @@ export function useEventHandler() {
       }
       case '4': {
         setCurrentPath('tips')
+        return;
+      }
+      case '5': {
+        setCurrentPath('appinfo')
         return;
       }
     }

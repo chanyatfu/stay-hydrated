@@ -1,15 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
-import { getRandomItem } from "../helpers/getRandomItem";
-import { waterQuotes } from "../water-quotes";
-import { useInput } from "../hooks/useInput";
-import { ringBell } from "../helpers/ringBell";
 import { Box, Text } from "ink";
-import { formatNumberToLiter } from "../helpers/formatNumberToLiter";
-import { getTotalVolume } from "../helpers/getTotalVolume";
-import getRemainingTimeForBottle from "../helpers/getRemainingTimeForBottle";
-import Bottle from "../components/Bottle";
-import Layout from "./layout";
-import { useStore } from "../stores/root-store";
+import { formatNumberToLiter, getTotalVolume, getRemainingTimeForBottle } from "helpers";
+import Bottle from "components/Bottle";
+import { useStore } from "stores/root-store";
 
 export default function MainPage() {
   const { store } = useStore()

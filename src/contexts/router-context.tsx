@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-type Path = "welcome" | "water" | "history" | "settings" | "tips";
+type Path = "welcome" | "water" | "history" | "settings" | "tips" | "appinfo";
 
 type Router = {
   currentPath: Path;

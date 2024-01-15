@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { getRandomItem } from "../helpers/getRandomItem";
-import { waterQuotes } from "../water-quotes";
-import { useDatabase } from "../database";
+import { getRandomItem } from "helpers";
+import { waterQuotes } from "water-quotes";
+import { useDatabase } from "database";
 
 type Store = {
   volumes: number[];
@@ -12,6 +12,8 @@ type Store = {
   quote: string;
   isSoundOn: boolean;
   dailyTarget: number;
+  runInBackground: boolean;
+  lastUpdated: number,
 }
 
 const initialStore = {
@@ -22,7 +24,9 @@ const initialStore = {
   isSettingVolume: false,
   quote: getRandomItem(waterQuotes) || "",
   isSoundOn: true,
-  dailyTarget: 3000.
+  dailyTarget: 3000,
+  runInBackground: true,
+  lastUpdated: Date.now(),
 }
 
 
@@ -36,6 +40,7 @@ type StoreAction =
   | { type: "TOGGLE_SOUND" }
   | { type: "SET_DAILY_TARGET", payload: number }
   | { type: "LOAD_STORED_DATA", payload: Store }
+  | { type: "TOGGLE_RUN_IN_BACKGROUND" }
 
 function storeReducer(state: Store, action: StoreAction) {
   switch (action.type) {
@@ -54,7 +59,8 @@ function storeReducer(state: Store, action: StoreAction) {
     case "SET_REMAINING_VOLUME": {
       return {
         ...state,
-        remainingVolume: action.payload
+        remainingVolume: action.payload,
+        lastUpdate: Date.now()
       }
     }
     case "SET_WATER_PER_HOURS": {
@@ -88,8 +94,29 @@ function storeReducer(state: Store, action: StoreAction) {
       }
     }
     case "LOAD_STORED_DATA": {
+      // Need to consider if day change
+      // If user stay in welcome screen, there will be a bug
+      const secondElispedSinceLastLogin = (Date.now() - action.payload.lastUpdated) / 1000;
+      let remainingVolume: number;
+      if (action.payload.runInBackground && !action.payload.isSettingVolume) {
+        remainingVolume = Math.max(0, action.payload.remainingVolume - secondElispedSinceLastLogin * (action.payload.waterPerHours / 3600));
+      } else {
+        remainingVolume = action.payload.remainingVolume;
+      }
+      console.log('secondElispedSinceLastLogin', secondElispedSinceLastLogin)
+      console.log(remainingVolume)
+
       return {
-        ...action.payload
+        ...action.payload,
+        remainingVolume: remainingVolume,
+        isSettingVolume: remainingVolume === 0,
+        lastUpdated: Date.now(),
+      }
+    }
+    case "TOGGLE_RUN_IN_BACKGROUND": {
+      return {
+        ...state,
+        runInBackground: !state.runInBackground,
       }
     }
     default: {

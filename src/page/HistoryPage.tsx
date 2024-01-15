@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useDatabase } from "../database";
-import { useStore } from "../stores/root-store";
+import { useDatabase } from "database";
+import { useStore } from "stores/root-store";
 import { Box, Text } from "ink";
-import { getTotalVolume } from "../helpers/getTotalVolume";
-import { formatNumberToLiter } from "../helpers/formatNumberToLiter";
+import { getTotalVolume, formatNumberToLiter } from "helpers";
 
 function getDate7DaysAgo() {
   const today = new Date();

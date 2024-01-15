@@ -1,6 +1,5 @@
 import { Box } from "ink";
-import Header from "../components/Header";
-import { useInput } from "../hooks/useInput";
+import Header from "components/Header";
 
 type LayoutProps = {
   children: React.ReactNode

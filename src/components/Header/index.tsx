@@ -1,8 +1,8 @@
 import { Box, Text } from "ink";
 import HeaderItem from "./HeaderItem";
-import { useRouter } from "../../contexts/router-context";
-import { useStore } from "../../stores/root-store";
-import { getTotalVolume } from "../../helpers/getTotalVolume";
+import { useRouter } from "contexts/router-context";
+import { useStore } from "stores/root-store";
+import { getTotalVolume } from "helpers";
 
 type HeaderProps = {
   children?: React.ReactNode
@@ -11,6 +11,7 @@ export default function Header({ children }: HeaderProps) {
 
   const { currentPath } = useRouter();
   const { store } = useStore();
+  const percentOfWaterLeft = store.remainingVolume / store.maxVolume;
 
   const dailyTargetReached = Math.round((getTotalVolume(store.volumes) / store.dailyTarget) * 100)
   let targetColor = "red"
@@ -27,10 +28,11 @@ export default function Header({ children }: HeaderProps) {
       justifyContent="space-between"
     >
       <Box flexDirection="row">
-        <HeaderItem path="water">Water</HeaderItem>
+        <HeaderItem path="water" accent={percentOfWaterLeft <= 0}>Water</HeaderItem>
         <HeaderItem path="history">History</HeaderItem>
         <HeaderItem path="settings">Settings</HeaderItem>
         <HeaderItem path="tips">Tips</HeaderItem>
+        <HeaderItem path="appinfo">App Info</HeaderItem>
       </Box>
       <Box paddingTop={1} paddingLeft={2} paddingRight={2}>
         <Text color="green">Daily Target reached: <Text color={targetColor}>{dailyTargetReached}%</Text></Text>

@@ -1,20 +1,24 @@
 {
   "name": "stay-hydrated",
-  "module": "src/main.tsx",
+  "module": "./dist/src/main.js",
+  "main": "./dist/src/main.js",
   "type": "module",
   "scripts": {
     "start": "bun src/main.tsx"
   },
   "devDependencies": {
     "@types/lokijs": "^1.5.14",
-    "bun-types": "latest"
-  },
-  "dependencies": {
+    "bun-types": "latest",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.47",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
     "ink": "^4.4.1",
     "lokijs": "^1.5.12",
-    "react": "^18.2.0",
-    "typescript": "^5.3.3"
+    "react": "^18.2.0"
+  },
+  "bin": {
+    "app": "./dist/src/main.js"
   }
 }
