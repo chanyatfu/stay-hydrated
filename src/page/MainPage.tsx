@@ -21,7 +21,12 @@ export default function MainPage() {
   return (
     <>
       <Box flexDirection="column">
-        <Box borderStyle="classic" borderColor="green" overflow="hidden" height={3}>
+        <Box
+          borderStyle="classic"
+          borderColor="green"
+          overflow="hidden"
+          height={3}
+        >
           {isSettingVolume ? (
             <Text>
               Set the remaining volume: {formatNumberToLiter(remainingVolume)}

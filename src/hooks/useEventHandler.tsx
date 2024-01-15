@@ -22,8 +22,8 @@ export function useEventHandler() {
         return;
       }
       if (remainingVolume >= 0) {
-        if ((Date.now() - store.lastUpdated) > 10000) {
-          const secondElisped = (Date.now() - store.lastUpdated) / 1000
+        if (Date.now() - store.lastUpdated > 10000) {
+          const secondElisped = (Date.now() - store.lastUpdated) / 1000;
           storeDispatch({
             type: "SET_REMAINING_VOLUME",
             payload: secondElisped * (store.waterPerHours / 3600),

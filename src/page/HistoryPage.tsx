@@ -65,7 +65,11 @@ export default function HistoryPage() {
         {recentEntries.map((entry, index) => (
           <Box flexBasis="row" columnGap={4} key={index}>
             <Box>
-              <Text>{entry.date === today ? "Today".padEnd(11) : entry.date.padEnd(11)}</Text>
+              <Text>
+                {entry.date === today
+                  ? "Today".padEnd(11)
+                  : entry.date.padEnd(11)}
+              </Text>
             </Box>
             <Box>
               <Text>
