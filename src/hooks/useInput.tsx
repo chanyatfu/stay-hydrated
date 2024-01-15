@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 
-export function useInput(handleInput: (chunk: string) => void, dependencies: any[] = []) {
+export function useInput(
+  handleInput: (chunk: string) => void,
+  dependencies: any[] = [],
+) {
   useEffect(() => {
     // Enable raw mode to read input characters immediately
     process.stdin.setRawMode(true);

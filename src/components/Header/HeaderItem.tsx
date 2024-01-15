@@ -6,7 +6,11 @@ type HeaderItem = {
   path?: string;
   accent?: boolean;
 };
-export default function HeaderItem({ path, children, accent = false }: HeaderItem) {
+export default function HeaderItem({
+  path,
+  children,
+  accent = false,
+}: HeaderItem) {
   const { currentPath } = useRouter();
 
   return (

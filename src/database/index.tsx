@@ -7,10 +7,15 @@ const DatabaseContext = createContext({
   dailyCollection: null as Collection<any> | null,
 });
 
-export const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
+export const DatabaseProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [isDatabaseLoaded, setIsDatabaseLoaded] = useState(false);
   const [db, setDb] = useState<Loki | null>(null);
-  const [dailyCollection, setDailyCollection] = useState<Collection<any> | null>(null);
+  const [dailyCollection, setDailyCollection] =
+    useState<Collection<any> | null>(null);
 
   useEffect(() => {
     const localDb = new Loki("dailyData.db", {
@@ -30,7 +35,9 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
   }, []);
 
   return (
-    <DatabaseContext.Provider value={{ isDatabaseLoaded, db, dailyCollection }}>{children}</DatabaseContext.Provider>
+    <DatabaseContext.Provider value={{ isDatabaseLoaded, db, dailyCollection }}>
+      {children}
+    </DatabaseContext.Provider>
   );
 };
 

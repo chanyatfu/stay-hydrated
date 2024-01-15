@@ -14,11 +14,20 @@ export default function SettingPage() {
 
   const settingItemData: SettingItemData[] = [
     { title: "Bottle capacity", value: formatNumberToLiter(store.maxVolume) },
-    { title: "Water per hour", value: formatNumberToLiter(store.waterPerHours) },
+    {
+      title: "Water per hour",
+      value: formatNumberToLiter(store.waterPerHours),
+    },
     { title: "Sound", value: store.isSoundOn ? "ON" : "OFF" },
     { title: "Daily Target", value: formatNumberToLiter(store.dailyTarget) },
-    { title: "Keep tracking when not on app", value: store.runInBackground ? "ON" : "OFF" },
-    { title: "Allows Notification", value: store.allowsNotification ? "ON" : "OFF" },
+    {
+      title: "Keep tracking when not on app",
+      value: store.runInBackground ? "ON" : "OFF",
+    },
+    {
+      title: "Allows Notification",
+      value: store.allowsNotification ? "ON" : "OFF",
+    },
   ];
 
   const [hoveredIndex, setHoveredIndex] = useState(0);
@@ -32,11 +41,17 @@ export default function SettingPage() {
           if (isSelected) {
             switch (hoveredIndex) {
               case 0: {
-                storeDispatch({ type: "SET_MAX_VOLUME", payload: store.maxVolume + 20 });
+                storeDispatch({
+                  type: "SET_MAX_VOLUME",
+                  payload: store.maxVolume + 20,
+                });
                 break;
               }
               case 1: {
-                storeDispatch({ type: "SET_WATER_PER_HOURS", payload: store.waterPerHours + 20 });
+                storeDispatch({
+                  type: "SET_WATER_PER_HOURS",
+                  payload: store.waterPerHours + 20,
+                });
                 break;
               }
               case 2: {
@@ -44,7 +59,10 @@ export default function SettingPage() {
                 break;
               }
               case 3: {
-                storeDispatch({ type: "SET_DAILY_TARGET", payload: store.dailyTarget + 20 });
+                storeDispatch({
+                  type: "SET_DAILY_TARGET",
+                  payload: store.dailyTarget + 20,
+                });
                 break;
               }
               case 4: {
@@ -57,7 +75,10 @@ export default function SettingPage() {
               }
             }
           } else {
-            setHoveredIndex((hoveredIndex + settingItemData.length - 1) % settingItemData.length);
+            setHoveredIndex(
+              (hoveredIndex + settingItemData.length - 1) %
+                settingItemData.length,
+            );
           }
           break;
         }
@@ -66,11 +87,17 @@ export default function SettingPage() {
           if (isSelected) {
             switch (hoveredIndex) {
               case 0: {
-                storeDispatch({ type: "SET_MAX_VOLUME", payload: store.maxVolume - 20 });
+                storeDispatch({
+                  type: "SET_MAX_VOLUME",
+                  payload: store.maxVolume - 20,
+                });
                 break;
               }
               case 1: {
-                storeDispatch({ type: "SET_WATER_PER_HOURS", payload: store.waterPerHours - 20 });
+                storeDispatch({
+                  type: "SET_WATER_PER_HOURS",
+                  payload: store.waterPerHours - 20,
+                });
                 break;
               }
               case 2: {
@@ -78,7 +105,10 @@ export default function SettingPage() {
                 break;
               }
               case 3: {
-                storeDispatch({ type: "SET_DAILY_TARGET", payload: store.dailyTarget - 20 });
+                storeDispatch({
+                  type: "SET_DAILY_TARGET",
+                  payload: store.dailyTarget - 20,
+                });
                 break;
               }
               case 4: {

@@ -7,7 +7,13 @@ import { ringBell } from "../helpers";
 export function useEventHandler() {
   const { currentPath, setCurrentPath } = useRouter();
   const { store, storeDispatch } = useStore();
-  const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume } = store;
+  const {
+    volumes,
+    maxVolume,
+    remainingVolume,
+    waterPerHours,
+    isSettingVolume,
+  } = store;
   const buffer = useRef<number | null>(null);
 
   useEffect(() => {
@@ -16,7 +22,10 @@ export function useEventHandler() {
         return;
       }
       if (remainingVolume >= 0) {
-        storeDispatch({ type: "SET_REMAINING_VOLUME", payload: remainingVolume - store.waterPerHours / 3600 });
+        storeDispatch({
+          type: "SET_REMAINING_VOLUME",
+          payload: remainingVolume - store.waterPerHours / 3600,
+        });
       }
     }, 1000);
 
@@ -76,7 +85,10 @@ export function useEventHandler() {
             if (buffer.current === null) {
               return;
             }
-            storeDispatch({ type: "SET_REMAINING_VOLUME", payload: buffer.current });
+            storeDispatch({
+              type: "SET_REMAINING_VOLUME",
+              payload: buffer.current,
+            });
             storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false });
             buffer.current = null;
           }
@@ -87,7 +99,10 @@ export function useEventHandler() {
           const changeAmount = 10;
           switch (chunk) {
             case "\x1b[A": // up arrow
-              if (remainingVolume + changeAmount > maxVolume && store.isSoundOn) {
+              if (
+                remainingVolume + changeAmount > maxVolume &&
+                store.isSoundOn
+              ) {
                 ringBell();
               }
               storeDispatch({
@@ -99,17 +114,29 @@ export function useEventHandler() {
               if (store.remainingVolume - changeAmount < 0 && store.isSoundOn) {
                 ringBell();
               }
-              storeDispatch({ type: "SET_REMAINING_VOLUME", payload: Math.max(0, remainingVolume - changeAmount) });
+              storeDispatch({
+                type: "SET_REMAINING_VOLUME",
+                payload: Math.max(0, remainingVolume - changeAmount),
+              });
               break;
             case "\r":
             case "\n":
             case "\r\n":
               if (remainingVolume > 0) {
-                storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false });
+                storeDispatch({
+                  type: "SET_IS_SETTING_VOLUME",
+                  payload: false,
+                });
               } else {
-                storeDispatch({ type: "SET_REMAINING_VOLUME", payload: maxVolume });
+                storeDispatch({
+                  type: "SET_REMAINING_VOLUME",
+                  payload: maxVolume,
+                });
                 storeDispatch({ type: "ADD_BOTTLE", payload: maxVolume });
-                storeDispatch({ type: "SET_IS_SETTING_VOLUME", payload: false });
+                storeDispatch({
+                  type: "SET_IS_SETTING_VOLUME",
+                  payload: false,
+                });
               }
               break;
             default:

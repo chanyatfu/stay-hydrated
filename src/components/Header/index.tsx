@@ -12,7 +12,9 @@ export default function Header({ children }: HeaderProps) {
   const { store } = useStore();
   const percentOfWaterLeft = store.remainingVolume / store.maxVolume;
 
-  const dailyTargetReached = Math.round((getTotalVolume(store.volumes) / store.dailyTarget) * 100);
+  const dailyTargetReached = Math.round(
+    (getTotalVolume(store.volumes) / store.dailyTarget) * 100,
+  );
   let targetColor = "red";
   if (dailyTargetReached >= 30) {
     targetColor = "magenta";
@@ -46,7 +48,8 @@ export default function Header({ children }: HeaderProps) {
       </Box>
       <Box paddingTop={1} paddingLeft={2} paddingRight={2}>
         <Text color="green">
-          Daily Target reached: <Text color={targetColor}>{dailyTargetReached}%</Text>
+          Daily Target reached:{" "}
+          <Text color={targetColor}>{dailyTargetReached}%</Text>
         </Text>
       </Box>
     </Box>

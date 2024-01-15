@@ -1,4 +1,7 @@
-export function getRemainingTimeForBottle(remainingVolume: number, waterPerHours: number) {
+export function getRemainingTimeForBottle(
+  remainingVolume: number,
+  waterPerHours: number,
+) {
   const remainingTime = remainingVolume / waterPerHours;
   const remainingHours = Math.floor(remainingTime);
   const remainingMinutes = Math.ceil((remainingTime - remainingHours) * 60);

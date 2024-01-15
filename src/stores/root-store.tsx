@@ -98,12 +98,14 @@ function storeReducer(state: Store, action: StoreAction) {
     }
     case "LOAD_STORED_DATA": {
       // Need to consider if day change
-      const secondElispedSinceLastLogin = (Date.now() - action.payload.lastUpdated) / 1000;
+      const secondElispedSinceLastLogin =
+        (Date.now() - action.payload.lastUpdated) / 1000;
       let remainingVolume: number;
       if (action.payload.runInBackground && !action.payload.isSettingVolume) {
         remainingVolume = Math.max(
           0,
-          action.payload.remainingVolume - secondElispedSinceLastLogin * (action.payload.waterPerHours / 3600),
+          action.payload.remainingVolume -
+            secondElispedSinceLastLogin * (action.payload.waterPerHours / 3600),
         );
       } else {
         remainingVolume = action.payload.remainingVolume;
@@ -117,12 +119,14 @@ function storeReducer(state: Store, action: StoreAction) {
       };
     }
     case "RESET_LAST_UPDATED_AND_REMAINING_VOLUME": {
-      const secondElispedSinceLastLogin = (Date.now() - state.lastUpdated) / 1000;
+      const secondElispedSinceLastLogin =
+        (Date.now() - state.lastUpdated) / 1000;
       let remainingVolume: number;
       if (state.runInBackground && !state.isSettingVolume) {
         remainingVolume = Math.max(
           0,
-          state.remainingVolume - secondElispedSinceLastLogin * (state.waterPerHours / 3600),
+          state.remainingVolume -
+            secondElispedSinceLastLogin * (state.waterPerHours / 3600),
         );
       } else {
         remainingVolume = state.remainingVolume;
@@ -201,5 +205,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     }
   }, [store, isDatabaseLoaded, dailyCollection]);
 
-  return <StoreContext.Provider value={{ store, storeDispatch }}>{children}</StoreContext.Provider>;
+  return (
+    <StoreContext.Provider value={{ store, storeDispatch }}>
+      {children}
+    </StoreContext.Provider>
+  );
 }

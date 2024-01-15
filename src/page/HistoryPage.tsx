@@ -68,7 +68,9 @@ export default function HistoryPage() {
               <Text>{entry.date === today ? "Today" : entry.date}</Text>
             </Box>
             <Box>
-              <Text>{formatNumberToLiter(getTotalVolume(entry.store.volumes))}</Text>
+              <Text>
+                {formatNumberToLiter(getTotalVolume(entry.store.volumes))}
+              </Text>
             </Box>
           </Box>
         ))}

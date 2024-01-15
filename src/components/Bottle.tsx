@@ -7,7 +7,16 @@ type BottleProps = {
 };
 export default function Bottle({ percent, volume }: BottleProps) {
   percent = Math.max(0, Math.min(1, percent));
-  let emptyBottle = ["  |=|  ", " /   \\ ", "|     |", "|     |", "|     |", "|     |", "|     |", "\\_____/"];
+  let emptyBottle = [
+    "  |=|  ",
+    " /   \\ ",
+    "|     |",
+    "|     |",
+    "|     |",
+    "|     |",
+    "|     |",
+    "\\_____/",
+  ];
   const filled = [
     { index: 4, fraction: `|${padBoth(volume.toString(), 5)}|` },
     { index: 7, fraction: "\\=====/" },

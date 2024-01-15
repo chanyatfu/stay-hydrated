@@ -13,7 +13,13 @@ import { useNotification } from "./hooks/useAlarm";
 function App() {
   const { currentPath, setCurrentPath } = useRouter();
   const { store, storeDispatch } = useStore();
-  const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume } = store;
+  const {
+    volumes,
+    maxVolume,
+    remainingVolume,
+    waterPerHours,
+    isSettingVolume,
+  } = store;
 
   useEventHandler();
   useNotification();
