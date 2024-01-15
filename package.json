@@ -4,13 +4,15 @@
   "main": "./dist/src/main.js",
   "type": "module",
   "scripts": {
-    "start": "bun src/main.tsx"
+    "start": "bun src/main.tsx",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/lokijs": "^1.5.14",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.47",
     "bun-types": "latest",
+    "prettier": "^3.2.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {

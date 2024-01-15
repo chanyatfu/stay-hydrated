@@ -4,5 +4,5 @@ export function getRandomItem<T>(arr: Array<T>) {
 }
 
 export function ringBell() {
-  console.log('\x07');
+  console.log("\x07");
 }

@@ -13,12 +13,12 @@ type Store = {
   isSoundOn: boolean;
   dailyTarget: number;
   runInBackground: boolean;
-  lastUpdated: number,
-  allowsNotification: boolean,
-}
+  lastUpdated: number;
+  allowsNotification: boolean;
+};
 
 const initialStore = {
-  volumes: new Array<number>,
+  volumes: new Array<number>(),
   maxVolume: 660,
   remainingVolume: 660,
   waterPerHours: 400,
@@ -29,80 +29,82 @@ const initialStore = {
   runInBackground: true,
   lastUpdated: Date.now(),
   allowsNotification: true,
-}
-
+};
 
 type StoreAction =
-  | { type: "ADD_BOTTLE", payload: number }
-  | { type: "SET_MAX_VOLUME", payload: number }
-  | { type: "SET_REMAINING_VOLUME", payload: number }
-  | { type: "SET_WATER_PER_HOURS", payload: number }
-  | { type: "SET_IS_SETTING_VOLUME", payload: boolean }
-  | { type: "SET_QUOTE", payload: string }
+  | { type: "ADD_BOTTLE"; payload: number }
+  | { type: "SET_MAX_VOLUME"; payload: number }
+  | { type: "SET_REMAINING_VOLUME"; payload: number }
+  | { type: "SET_WATER_PER_HOURS"; payload: number }
+  | { type: "SET_IS_SETTING_VOLUME"; payload: boolean }
+  | { type: "SET_QUOTE"; payload: string }
   | { type: "TOGGLE_SOUND" }
-  | { type: "SET_DAILY_TARGET", payload: number }
-  | { type: "LOAD_STORED_DATA", payload: Store }
+  | { type: "SET_DAILY_TARGET"; payload: number }
+  | { type: "LOAD_STORED_DATA"; payload: Store }
   | { type: "TOGGLE_RUN_IN_BACKGROUND" }
   | { type: "RESET_LAST_UPDATED_AND_REMAINING_VOLUME" }
-  | { type: "TOGGLE_ALLOWS_NOTIFICATION" }
+  | { type: "TOGGLE_ALLOWS_NOTIFICATION" };
 
 function storeReducer(state: Store, action: StoreAction) {
   switch (action.type) {
     case "ADD_BOTTLE": {
       return {
         ...state,
-        volumes: [...state.volumes, action.payload]
-      }
+        volumes: [...state.volumes, action.payload],
+      };
     }
     case "SET_MAX_VOLUME": {
       return {
         ...state,
-        maxVolume: action.payload
-      }
+        maxVolume: action.payload,
+      };
     }
     case "SET_REMAINING_VOLUME": {
       return {
         ...state,
         remainingVolume: action.payload,
-        lastUpdate: Date.now()
-      }
+        lastUpdate: Date.now(),
+      };
     }
     case "SET_WATER_PER_HOURS": {
       return {
         ...state,
-        waterPerHours: action.payload
-      }
+        waterPerHours: action.payload,
+      };
     }
     case "SET_IS_SETTING_VOLUME": {
       return {
         ...state,
-        isSettingVolume: action.payload
-      }
+        isSettingVolume: action.payload,
+      };
     }
     case "SET_QUOTE": {
       return {
         ...state,
-        quote: action.payload
-      }
+        quote: action.payload,
+      };
     }
     case "TOGGLE_SOUND": {
       return {
         ...state,
-        isSoundOn: !state.isSoundOn
-      }
+        isSoundOn: !state.isSoundOn,
+      };
     }
     case "SET_DAILY_TARGET": {
       return {
         ...state,
-        dailyTarget: action.payload
-      }
+        dailyTarget: action.payload,
+      };
     }
     case "LOAD_STORED_DATA": {
       // Need to consider if day change
       const secondElispedSinceLastLogin = (Date.now() - action.payload.lastUpdated) / 1000;
       let remainingVolume: number;
       if (action.payload.runInBackground && !action.payload.isSettingVolume) {
-        remainingVolume = Math.max(0, action.payload.remainingVolume - secondElispedSinceLastLogin * (action.payload.waterPerHours / 3600));
+        remainingVolume = Math.max(
+          0,
+          action.payload.remainingVolume - secondElispedSinceLastLogin * (action.payload.waterPerHours / 3600),
+        );
       } else {
         remainingVolume = action.payload.remainingVolume;
       }
@@ -112,13 +114,16 @@ function storeReducer(state: Store, action: StoreAction) {
         remainingVolume: remainingVolume,
         isSettingVolume: remainingVolume === 0,
         lastUpdated: Date.now(),
-      }
+      };
     }
     case "RESET_LAST_UPDATED_AND_REMAINING_VOLUME": {
       const secondElispedSinceLastLogin = (Date.now() - state.lastUpdated) / 1000;
       let remainingVolume: number;
       if (state.runInBackground && !state.isSettingVolume) {
-        remainingVolume = Math.max(0, state.remainingVolume - secondElispedSinceLastLogin * (state.waterPerHours / 3600));
+        remainingVolume = Math.max(
+          0,
+          state.remainingVolume - secondElispedSinceLastLogin * (state.waterPerHours / 3600),
+        );
       } else {
         remainingVolume = state.remainingVolume;
       }
@@ -127,31 +132,30 @@ function storeReducer(state: Store, action: StoreAction) {
         remainingVolume: remainingVolume,
         isSettingVolume: remainingVolume === 0,
         lastUpdated: Date.now(),
-      }
+      };
     }
     case "TOGGLE_RUN_IN_BACKGROUND": {
       return {
         ...state,
         runInBackground: !state.runInBackground,
-      }
+      };
     }
     case "TOGGLE_ALLOWS_NOTIFICATION": {
       return {
         ...state,
         allowsNotification: !state.allowsNotification,
-      }
+      };
     }
     default: {
-      throw new Error("Unhandled action type")
+      throw new Error("Unhandled action type");
     }
-
   }
 }
 
 type StoreContextType = {
-  store: Store
-  storeDispatch: React.Dispatch<StoreAction>
-}
+  store: Store;
+  storeDispatch: React.Dispatch<StoreAction>;
+};
 
 const StoreContext = createContext<StoreContextType>({
   store: initialStore,
@@ -162,24 +166,24 @@ export const useStore = () => useContext(StoreContext);
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const { isDatabaseLoaded, db, dailyCollection } = useDatabase();
-  const [store, storeDispatch] = useReducer(storeReducer, initialStore)
+  const [store, storeDispatch] = useReducer(storeReducer, initialStore);
 
   useEffect(() => {
     if (!isDatabaseLoaded || !dailyCollection) return;
 
     // Load data from the database when the application starts
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     const storedData = dailyCollection.findOne({ date: today });
 
     if (storedData) {
-      storeDispatch({ type: 'LOAD_STORED_DATA', payload: storedData.store });
+      storeDispatch({ type: "LOAD_STORED_DATA", payload: storedData.store });
     }
   }, [isDatabaseLoaded, dailyCollection]);
 
   useEffect(() => {
     // Save data to the database whenever the store changes
     if (!isDatabaseLoaded || !dailyCollection) return;
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     let dataEntry = dailyCollection.findOne({ date: today });
 
     if (dataEntry) {
@@ -189,7 +193,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     } else {
       // If no entry exists for today, create a new one
       dailyCollection.insert({ date: today, store });
-      storeDispatch({ type: "SET_QUOTE", payload: getRandomItem(waterQuotes), });
+      storeDispatch({ type: "SET_QUOTE", payload: getRandomItem(waterQuotes) });
     }
 
     if (db) {
@@ -197,9 +201,5 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     }
   }, [store, isDatabaseLoaded, dailyCollection]);
 
-  return (
-    <StoreContext.Provider value={{store, storeDispatch}}>
-      {children}
-    </StoreContext.Provider>
-  );
+  return <StoreContext.Provider value={{ store, storeDispatch }}>{children}</StoreContext.Provider>;
 }

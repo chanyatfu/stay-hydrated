@@ -1,5 +1,5 @@
-import Loki, { Collection } from 'lokijs';
-import { useState, useEffect, createContext, useContext } from 'react';
+import Loki, { Collection } from "lokijs";
+import { useState, useEffect, createContext, useContext } from "react";
 
 const DatabaseContext = createContext({
   isDatabaseLoaded: false,
@@ -13,26 +13,24 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
   const [dailyCollection, setDailyCollection] = useState<Collection<any> | null>(null);
 
   useEffect(() => {
-    const localDb = new Loki('dailyData.db', {
+    const localDb = new Loki("dailyData.db", {
       autoload: true,
       autoloadCallback: () => {
-        let collection = localDb.getCollection('daily');
+        let collection = localDb.getCollection("daily");
         if (!collection) {
-          collection = localDb.addCollection('daily');
+          collection = localDb.addCollection("daily");
         }
         setDailyCollection(collection);
         setDb(localDb);
         setIsDatabaseLoaded(true);
       },
       autosave: true,
-      autosaveInterval: 4000
+      autosaveInterval: 4000,
     });
   }, []);
 
   return (
-    <DatabaseContext.Provider value={{ isDatabaseLoaded, db, dailyCollection }}>
-      {children}
-    </DatabaseContext.Provider>
+    <DatabaseContext.Provider value={{ isDatabaseLoaded, db, dailyCollection }}>{children}</DatabaseContext.Provider>
   );
 };
 

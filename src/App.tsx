@@ -11,34 +11,51 @@ import AppInfoPage from "./page/AppInfoPage";
 import { useNotification } from "./hooks/useAlarm";
 
 function App() {
+  const { currentPath, setCurrentPath } = useRouter();
+  const { store, storeDispatch } = useStore();
+  const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume } = store;
 
-  const { currentPath, setCurrentPath } = useRouter()
-  const { store, storeDispatch } = useStore()
-  const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume } = store
-
-  useEventHandler()
-  useNotification()
+  useEventHandler();
+  useNotification();
 
   switch (currentPath) {
-    case 'welcome':
+    case "welcome":
       return (
         <Layout justifyContent="center" alignItems="center">
           <WelcomePage />
         </Layout>
-      )
-    case 'water':
-      return <Layout><MainPage /></Layout>
-    case 'history':
-      return <Layout><HistoryPage /></Layout>
-    case 'settings':
-      return <Layout><SettingPage /></Layout>
-    case 'tips':
-      return <Layout><TipsPage /></Layout>
-    case 'appinfo':
-      return <Layout><AppInfoPage /></Layout>
-
+      );
+    case "water":
+      return (
+        <Layout>
+          <MainPage />
+        </Layout>
+      );
+    case "history":
+      return (
+        <Layout>
+          <HistoryPage />
+        </Layout>
+      );
+    case "settings":
+      return (
+        <Layout>
+          <SettingPage />
+        </Layout>
+      );
+    case "tips":
+      return (
+        <Layout>
+          <TipsPage />
+        </Layout>
+      );
+    case "appinfo":
+      return (
+        <Layout>
+          <AppInfoPage />
+        </Layout>
+      );
   }
-
 }
 
 export default App;

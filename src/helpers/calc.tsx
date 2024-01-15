@@ -7,5 +7,5 @@ export function getRemainingTimeForBottle(remainingVolume: number, waterPerHours
 }
 
 export function getTotalVolume(volumes: number[]) {
-  return volumes.length === 0 ? 0 : volumes.reduce((a, b) => a + b)
+  return volumes.length === 0 ? 0 : volumes.reduce((a, b) => a + b);
 }
