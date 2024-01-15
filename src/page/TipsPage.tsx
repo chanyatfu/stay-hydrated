@@ -8,6 +8,7 @@ export default function TipsPage() {
     "Press Ctrl+C to exit the app.",
     "Water count toward target only if it have been confirmed",
     "Use Up/Down arrow to navigate throught setting. Press Enter to select and unselected. Use Up/Down arrow to modified the value",
+    "Turn on the 'Keep tracking when not on app' settting to track your water intake even when you are not on the app.",
   ]
 
   return (

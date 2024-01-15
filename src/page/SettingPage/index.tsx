@@ -18,7 +18,7 @@ export default function SettingPage() {
     { title: "Water per hour", value: formatNumberToLiter(store.waterPerHours) },
     { title: "Sound", value: store.isSoundOn ? "ON" : "OFF" },
     { title: "Daily Target", value: formatNumberToLiter(store.dailyTarget) },
-    { title: "Run in background", value: store.runInBackground ? "ON" : "OFF"},
+    { title: "Keep tracking when not on app", value: store.runInBackground ? "ON" : "OFF"},
   ]
 
   const [hoveredIndex, setHoveredIndex] = useState(0);
