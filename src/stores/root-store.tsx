@@ -41,6 +41,7 @@ type StoreAction =
   | { type: "SET_DAILY_TARGET", payload: number }
   | { type: "LOAD_STORED_DATA", payload: Store }
   | { type: "TOGGLE_RUN_IN_BACKGROUND" }
+  | { type: "RESET_LAST_UPDATED_AND_REMAINING_VOLUME" }
 
 function storeReducer(state: Store, action: StoreAction) {
   switch (action.type) {
@@ -95,7 +96,6 @@ function storeReducer(state: Store, action: StoreAction) {
     }
     case "LOAD_STORED_DATA": {
       // Need to consider if day change
-      // If user stay in welcome screen, there will be a bug
       const secondElispedSinceLastLogin = (Date.now() - action.payload.lastUpdated) / 1000;
       let remainingVolume: number;
       if (action.payload.runInBackground && !action.payload.isSettingVolume) {
@@ -113,6 +113,22 @@ function storeReducer(state: Store, action: StoreAction) {
         lastUpdated: Date.now(),
       }
     }
+    case "RESET_LAST_UPDATED_AND_REMAINING_VOLUME": {
+      const secondElispedSinceLastLogin = (Date.now() - state.lastUpdated) / 1000;
+      let remainingVolume: number;
+      if (state.runInBackground && !state.isSettingVolume) {
+        remainingVolume = Math.max(0, state.remainingVolume - secondElispedSinceLastLogin * (state.waterPerHours / 3600));
+      } else {
+        remainingVolume = state.remainingVolume;
+      }
+      return {
+        ...state,
+        remainingVolume: remainingVolume,
+        isSettingVolume: remainingVolume === 0,
+        lastUpdated: Date.now(),
+      }
+    }
+
     case "TOGGLE_RUN_IN_BACKGROUND": {
       return {
         ...state,

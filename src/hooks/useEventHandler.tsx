@@ -17,9 +17,6 @@ export function useEventHandler() {
         return
       }
       if (remainingVolume >= 0) {
-        if (currentPath === 'welcome') {
-          return
-        }
         storeDispatch({ type: "SET_REMAINING_VOLUME", payload: remainingVolume - store.waterPerHours / 3600 })
       }
 
