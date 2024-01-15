@@ -189,6 +189,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     } else {
       // If no entry exists for today, create a new one
       dailyCollection.insert({ date: today, store });
+      storeDispatch({ type: "SET_QUOTE", payload: getRandomItem(waterQuotes), });
     }
 
     if (db) {
