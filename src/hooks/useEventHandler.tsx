@@ -82,7 +82,7 @@ export function useEventHandler() {
           return
         }
 
-        const changeAmount = 20
+        const changeAmount = 1
         switch(chunk) {
           case '\x1b[A':  // up arrow
             if (remainingVolume + changeAmount > maxVolume && store.isSoundOn) {

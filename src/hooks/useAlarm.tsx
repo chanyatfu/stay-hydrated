@@ -1,24 +1,27 @@
-import { ringBell } from "helpers";
 import { useEffect } from "react";
 import { useStore } from "stores/root-store";
+import notifier from 'node-notifier';
 
-export function useAlarm() {
-  const { store, storeDispatch } = useStore()
-  const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume } = store
 
+export function useNotification() {
+  const { store } = useStore()
 
   useEffect(() => {
+    notifier.notify({
+      title: 'Reminder',
+      message: 'Start your day hydrated!',
+      sound: store.isSoundOn,
+    });
+  }, [])
 
-    const interval = setInterval(() => {
-      if (store.isSettingVolume) {
-        if (store.isSoundOn) {
-          ringBell()
-        }
-      }
-    }, 1000)
+  useEffect(() => {
+    if (store.isSettingVolume) {
+      notifier.notify({
+        title: 'Reminder',
+        message: 'Time to finish your current water bottle!',
+        sound: store.isSoundOn,
+      });
+    }
+  }, [store.isSettingVolume])
 
-		return () => {
-			clearInterval(interval);
-		};
-  }, [remainingVolume, maxVolume])
 }
