@@ -2,7 +2,7 @@ import { useStore } from "stores/root-store";
 
 export function useReloadWhenDayPass() {
   // Save data to the database whenever the store changes
-  const { store, storeDispatch } = useStore()
+  const { store, storeDispatch } = useStore();
   const { isDatabaseLoaded, db, dailyCollection } = useDatabase();
   if (!isDatabaseLoaded || !dailyCollection) return;
   const today = new Date().toISOString().split("T")[0];
@@ -20,5 +20,5 @@ export function useReloadWhenDayPass() {
   if (db) {
     db.saveDatabase();
   }
-  storeDispatch()
+  storeDispatch();
 }

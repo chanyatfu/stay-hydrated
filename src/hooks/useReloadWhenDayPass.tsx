@@ -16,11 +16,11 @@ export function useReloadWhenDayPass() {
   const { store, storeDispatch } = useStore();
 
   useEffect(() => {
-    const today = getTodayDate()
+    const today = getTodayDate();
     if (currentDate === today) {
-      return
+      return;
     }
-    console.log("date change")
+    console.log("date change");
     if (!isDatabaseLoaded || !dailyCollection) return;
     setCurrentDate(today);
     let dataEntry = dailyCollection.findOne({ date: today });
@@ -37,7 +37,6 @@ export function useReloadWhenDayPass() {
       db.saveDatabase();
     }
 
-    storeDispatch({ type: "CLEAR_DAILY_DATA" })
-
-  }, [currentDate])
+    storeDispatch({ type: "CLEAR_DAILY_DATA" });
+  }, [currentDate]);
 }
