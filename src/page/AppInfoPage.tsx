@@ -8,7 +8,7 @@ export default function AppInfoPage() {
           <Text>Version: 1.0.0</Text>
         </Box>
         <Box>
-          <Text>Release date: 15-01-2023</Text>
+          <Text>Last Updated: 15-01-2023</Text>
         </Box>
       </Box>
     </>
