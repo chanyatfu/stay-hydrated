@@ -1,37 +1,11 @@
 # Stay Hydrated
 
-**I don't have time to write a formal manual yet, so here is a TLDR.**
-- number key 1,2,3,4 to change page
-- go to the tips page to see the manual
+## Overview
 
-## UI
+This application helps users track their water intake. It features a user-friendly interface with pages for main tracking, history, settings, tips, and app information.
+
 <img width="855" alt="Screenshot 2024-01-13 at 5 05 08 PM" src="https://github.com/chanyatfu/stay-hydrated/assets/45863731/31112d71-71b0-4f1c-b48f-b6e3f5099b5c">
 
-## Features
-
-- **Interactive Water Bottle Display**: Visual representation of water bottles to show your daily water intake.
-- **Customizable Bottle Volume**: Adjust the volume of each bottle to match your actual water bottle.
-- **Water Consumption Tracker**: Tracks the total volume of water you have consumed during the day.
-- **Reminders for Drinking Water**: Provides reminders based on the volume remaining and your drinking rate.
-- **Inspirational Water Quotes**: Displays random water-related quotes for motivation.
-
-## How to Use
-
-1. **Setting the Bottle Volume**:
-   - When the timer for the current bottle runs out, the app will prompt you to set the remaining volume of this bottle in case you haven't finished it.
-   - Use the Up and Down arrow keys to adjust the remaining volume of the bottle.
-   - Press Enter to confirm the volume.
-
-2. **Tracking Your Intake**:
-   - The main screen shows the total amount of water you have consumed.
-   - It also displays the time remaining to finish your current bottle based on your drinking rate.
-
-3. **Visual Feedback**:
-   - The app provides visual feedback with each bottle displayed on the screen.
-   - Color coding indicates whether a bottle is full, partially consumed, or empty.
-
-4. **Exit the Application**:
-   - You can exit the application at any time by pressing `Ctrl+C`.
 
 ## Installation
 
@@ -43,3 +17,25 @@ cd stay-hydrated
 bun install
 bun start
 ```
+
+
+## Features
+
+- **Persistence Storage**: Ensures your data is saved and retrievable even after closing and reopening the app.
+- **Background Tracking**: Continues tracking your water intake even when not actively using the app.  
+- **Interactive Water Bottle Display**: Visual representation of water bottles to show your daily water intake.
+- **Customizable Bottle Volume**: Adjust the volume of each bottle to match your actual water bottle.
+- **Water Consumption Tracker**: Tracks the total volume of water you have consumed during the day.
+- **Reminders for Drinking Water**: Provides reminders based on the volume remaining and your drinking rate.
+- **Inspirational Water Quotes**: Displays random water-related quotes for motivation.
+
+
+## Navigation
+
+Navigate between pages using the number keys.
+
+**Main Page(1)**: Shows current water intake and allows setting volumes.
+**History Page(2)**: Displays water intake history for the past 7 days.
+**Settings Page(3)**: Allows adjusting settings like bottle capacity and sound.
+**Tips Page(4)**: Provides helpful tips for using the app.
+**App Info Page(5)**: Shows version and release date of the app.
