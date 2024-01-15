@@ -4,7 +4,7 @@
 
 This application helps users track their water intake. It features a user-friendly interface with pages for main tracking, history, settings, tips, and app information.
 
-<img width="855" alt="Screenshot 2024-01-13 at 5 05 08 PM" src="https://github.com/chanyatfu/stay-hydrated/assets/45863731/31112d71-71b0-4f1c-b48f-b6e3f5099b5c">
+<img width="853" alt="Screenshot 2024-01-15 at 11 01 35 AM" src="https://github.com/chanyatfu/stay-hydrated/assets/45863731/ae8e93ff-c5ca-4c91-86ce-dc887e0446cc">
 
 
 ## Installation
