@@ -103,8 +103,6 @@ function storeReducer(state: Store, action: StoreAction) {
       } else {
         remainingVolume = action.payload.remainingVolume;
       }
-      console.log('secondElispedSinceLastLogin', secondElispedSinceLastLogin)
-      console.log(remainingVolume)
 
       return {
         ...action.payload,
@@ -164,7 +162,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     // Load data from the database when the application starts
     const today = new Date().toISOString().split('T')[0];
     const storedData = dailyCollection.findOne({ date: today });
-    console.log(storedData);
 
     if (storedData) {
       storeDispatch({ type: 'LOAD_STORED_DATA', payload: storedData.store });

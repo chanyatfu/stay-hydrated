@@ -52,9 +52,6 @@ export default function HistoryPage() {
   }, [store, isDatabaseLoaded, dailyCollection]);
 
 
-  // useEffect(() => {
-  //   console.log(recentEntries);
-  // }, [recentEntries])
   return (
     <>
       <Box flexDirection="column" rowGap={1}>
