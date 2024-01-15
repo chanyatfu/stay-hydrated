@@ -34,8 +34,8 @@ bun start
 
 Navigate between pages using the number keys.
 
-**Main Page(1)**: Shows current water intake and allows setting volumes.
-**History Page(2)**: Displays water intake history for the past 7 days.
-**Settings Page(3)**: Allows adjusting settings like bottle capacity and sound.
-**Tips Page(4)**: Provides helpful tips for using the app.
-**App Info Page(5)**: Shows version and release date of the app.
+- **Main Page(1)**: Shows current water intake and allows setting volumes.
+- **History Page(2)**: Displays water intake history for the past 7 days.
+- **Settings Page(3)**: Allows adjusting settings like bottle capacity and sound.
+- **Tips Page(4)**: Provides helpful tips for using the app.
+- **App Info Page(5)**: Shows version and release date of the app.
