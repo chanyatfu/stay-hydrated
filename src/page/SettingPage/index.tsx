@@ -19,6 +19,7 @@ export default function SettingPage() {
     { title: "Sound", value: store.isSoundOn ? "ON" : "OFF" },
     { title: "Daily Target", value: formatNumberToLiter(store.dailyTarget) },
     { title: "Keep tracking when not on app", value: store.runInBackground ? "ON" : "OFF"},
+    { title: "Allows Notification", value: store.allowsNotification ? "ON" : "OFF" }
   ]
 
   const [hoveredIndex, setHoveredIndex] = useState(0);
@@ -47,6 +48,11 @@ export default function SettingPage() {
             }
             case 4: {
               storeDispatch({ type: "TOGGLE_RUN_IN_BACKGROUND" })
+              break;
+            }
+            case 5: {
+              storeDispatch({ type: "TOGGLE_ALLOWS_NOTIFICATION" })
+              break;
             }
           }
         } else {
@@ -75,6 +81,11 @@ export default function SettingPage() {
             }
             case 4: {
               storeDispatch({ type: "TOGGLE_RUN_IN_BACKGROUND" })
+              break;
+            }
+            case 5: {
+              storeDispatch({ type: "TOGGLE_ALLOWS_NOTIFICATION" })
+              break;
             }
           }
         } else {

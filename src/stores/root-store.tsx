@@ -14,7 +14,7 @@ type Store = {
   dailyTarget: number;
   runInBackground: boolean;
   lastUpdated: number,
-  notifyingUser: boolean,
+  allowsNotification: boolean,
 }
 
 const initialStore = {
@@ -28,7 +28,7 @@ const initialStore = {
   dailyTarget: 3000,
   runInBackground: true,
   lastUpdated: Date.now(),
-  notifyingUser: false,
+  allowsNotification: true,
 }
 
 
@@ -44,8 +44,7 @@ type StoreAction =
   | { type: "LOAD_STORED_DATA", payload: Store }
   | { type: "TOGGLE_RUN_IN_BACKGROUND" }
   | { type: "RESET_LAST_UPDATED_AND_REMAINING_VOLUME" }
-  | { type: "START_NOTIFYING_USER" }
-  | { type: "STOP_NOTIFYING_USER" }
+  | { type: "TOGGLE_ALLOWS_NOTIFICATION" }
 
 function storeReducer(state: Store, action: StoreAction) {
   switch (action.type) {
@@ -136,16 +135,10 @@ function storeReducer(state: Store, action: StoreAction) {
         runInBackground: !state.runInBackground,
       }
     }
-    case "START_NOTIFYING_USER": {
+    case "TOGGLE_ALLOWS_NOTIFICATION": {
       return {
         ...state,
-        notifyingUser: true,
-      }
-    }
-    case "STOP_NOTIFYING_USER": {
-      return {
-        ...state,
-        notifyingUser: false,
+        allowsNotification: !state.allowsNotification,
       }
     }
     default: {
