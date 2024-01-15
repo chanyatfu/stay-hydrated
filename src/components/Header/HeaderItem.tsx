@@ -15,7 +15,7 @@ export default function HeaderItem({
 
   return (
     <Box paddingTop={1} paddingLeft={2} paddingRight={2}>
-      <Text dimColor={currentPath !== path} color={accent ? "red" : "green"}>
+      <Text dimColor={currentPath !== path} color={accent ? "red" : "green"} wrap="truncate-end">
         {children}
       </Text>
     </Box>

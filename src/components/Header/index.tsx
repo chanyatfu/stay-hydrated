@@ -47,7 +47,7 @@ export default function Header({ children }: HeaderProps) {
         <HeaderItem path="appinfo">App Info</HeaderItem>
       </Box>
       <Box paddingTop={1} paddingLeft={2} paddingRight={2}>
-        <Text color="green">
+        <Text color="green" wrap="truncate-start">
           Daily Target reached:{" "}
           <Text color={targetColor}>{dailyTargetReached}%</Text>
         </Text>
