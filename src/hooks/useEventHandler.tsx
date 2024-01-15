@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { useRouter } from "contexts/router-context";
+import { useRouter } from "../contexts/router-context";
 import { useStore } from "../stores/root-store";
 import { useInput } from "./useInput";
-import { ringBell } from "helpers";
+import { ringBell } from "../helpers";
 
 export function useEventHandler() {
 

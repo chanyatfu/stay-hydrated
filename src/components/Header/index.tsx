@@ -1,8 +1,8 @@
 import { Box, Text } from "ink";
 import HeaderItem from "./HeaderItem";
-import { useRouter } from "contexts/router-context";
-import { useStore } from "stores/root-store";
-import { getTotalVolume } from "helpers";
+import { useRouter } from "../../contexts/router-context";
+import { useStore } from "../../stores/root-store";
+import { getTotalVolume } from "../../helpers";
 
 type HeaderProps = {
   children?: React.ReactNode

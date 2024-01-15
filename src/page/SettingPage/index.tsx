@@ -1,8 +1,8 @@
-import { useInput } from "hooks/useInput";
+import { useInput } from "../../hooks/useInput";
 import SettingItem from "./SettingItem";
 import { useState } from "react";
-import { useStore } from "stores/root-store";
-import { formatNumberToLiter } from "helpers";
+import { useStore } from "../../stores/root-store";
+import { formatNumberToLiter } from "../../helpers";
 
 type SettingItemData = {
   title: string

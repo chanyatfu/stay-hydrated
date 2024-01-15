@@ -1,5 +1,5 @@
 import { Box, Text } from "ink";
-import { padBoth } from "helpers";
+import { padBoth } from "../helpers";
 
 type BottleProps = {
   percent: number

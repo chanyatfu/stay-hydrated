@@ -1,5 +1,5 @@
 import { Box, Text } from "ink";
-import { useRouter } from "contexts/router-context";
+import { useRouter } from "../../contexts/router-context";
 
 type HeaderItem = {
   children?: React.ReactNode

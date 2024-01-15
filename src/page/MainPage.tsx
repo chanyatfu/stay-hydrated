@@ -1,7 +1,7 @@
 import { Box, Text } from "ink";
-import { formatNumberToLiter, getTotalVolume, getRemainingTimeForBottle } from "helpers";
-import Bottle from "components/Bottle";
-import { useStore } from "stores/root-store";
+import { formatNumberToLiter, getTotalVolume, getRemainingTimeForBottle } from "../helpers";
+import Bottle from "../components/Bottle";
+import { useStore } from "../stores/root-store";
 
 export default function MainPage() {
   const { store } = useStore()

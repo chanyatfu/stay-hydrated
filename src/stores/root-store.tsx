@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { getRandomItem } from "helpers";
-import { waterQuotes } from "water-quotes";
-import { useDatabase } from "database";
+import { getRandomItem } from "../helpers";
+import { waterQuotes } from "../water-quotes";
+import { useDatabase } from "../database";
 
 type Store = {
   volumes: number[];

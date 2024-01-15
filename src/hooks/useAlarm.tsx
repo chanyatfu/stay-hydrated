@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useStore } from "stores/root-store";
+import { useStore } from "../stores/root-store";
 import notifier from 'node-notifier';
 
 

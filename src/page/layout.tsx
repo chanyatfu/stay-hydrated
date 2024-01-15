@@ -1,5 +1,5 @@
 import { Box } from "ink";
-import Header from "components/Header";
+import Header from "../components/Header";
 
 type LayoutProps = {
   children: React.ReactNode

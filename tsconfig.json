@@ -3,7 +3,7 @@
     "allowUmdGlobalAccess": false,
     "lib": ["ESNext"],
     "module": "ESNext",
-    "target": "ESNext",
+    "target": "ES2018",
     "moduleResolution": "Bundler",
     "moduleDetection": "force",
     "allowImportingTsExtensions": false,

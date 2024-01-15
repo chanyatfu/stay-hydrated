@@ -7,8 +7,8 @@ import HistoryPage from "./page/HistoryPage";
 import { useStore } from "./stores/root-store";
 import { useEventHandler } from "./hooks/useEventHandler";
 import TipsPage from "./page/TipsPage";
-import AppInfoPage from "page/AppInfoPage";
-import { useNotification } from "hooks/useAlarm";
+import AppInfoPage from "./page/AppInfoPage";
+import { useNotification } from "./hooks/useAlarm";
 
 function App() {
 
