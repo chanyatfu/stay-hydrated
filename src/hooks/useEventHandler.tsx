@@ -3,7 +3,6 @@ import { useRouter } from "contexts/router-context";
 import { useStore } from "../stores/root-store";
 import { useInput } from "./useInput";
 import { ringBell } from "helpers";
-import playSound from 'play-sound';
 
 export function useEventHandler() {
 
