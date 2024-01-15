@@ -8,13 +8,17 @@ export function useAlarm() {
 
 
   useEffect(() => {
-    const percentOfWaterLeft = remainingVolume / maxVolume;
-    if (percentOfWaterLeft < 0.5) {
-      // Alarm the user once
-    }
-    if (percentOfWaterLeft <= 0) {
-      ringBell()
-      // keep alarming the user
-    }
+
+    const interval = setInterval(() => {
+      if (store.isSettingVolume) {
+        if (store.isSoundOn) {
+          ringBell()
+        }
+      }
+    }, 1000)
+
+		return () => {
+			clearInterval(interval);
+		};
   }, [remainingVolume, maxVolume])
 }

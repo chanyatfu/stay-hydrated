@@ -8,14 +8,16 @@
   },
   "devDependencies": {
     "@types/lokijs": "^1.5.14",
-    "bun-types": "latest",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.47",
+    "bun-types": "latest",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@types/play-sound": "^1.1.2",
     "ink": "^4.4.1",
     "lokijs": "^1.5.12",
+    "play-sound": "^1.1.6",
     "react": "^18.2.0"
   },
   "bin": {

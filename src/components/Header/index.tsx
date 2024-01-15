@@ -28,7 +28,7 @@ export default function Header({ children }: HeaderProps) {
       justifyContent="space-between"
     >
       <Box flexDirection="row">
-        <HeaderItem path="water" accent={percentOfWaterLeft <= 0}>Water</HeaderItem>
+        <HeaderItem path="water" accent={store.isSettingVolume}>Water</HeaderItem>
         <HeaderItem path="history">History</HeaderItem>
         <HeaderItem path="settings">Settings</HeaderItem>
         <HeaderItem path="tips">Tips</HeaderItem>

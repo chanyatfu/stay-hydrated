@@ -8,6 +8,7 @@ import { useStore } from "./stores/root-store";
 import { useEventHandler } from "./hooks/useEventHandler";
 import TipsPage from "./page/TipsPage";
 import AppInfoPage from "page/AppInfoPage";
+import { useAlarm } from "hooks/useAlarm";
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
   const { volumes, maxVolume, remainingVolume, waterPerHours, isSettingVolume } = store
 
   useEventHandler()
-  
+  useAlarm()
 
   switch (currentPath) {
     case 'welcome':
