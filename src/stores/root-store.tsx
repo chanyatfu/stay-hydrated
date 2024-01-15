@@ -43,7 +43,8 @@ type StoreAction =
   | { type: "LOAD_STORED_DATA"; payload: Store }
   | { type: "TOGGLE_RUN_IN_BACKGROUND" }
   | { type: "RESET_LAST_UPDATED_AND_REMAINING_VOLUME" }
-  | { type: "TOGGLE_ALLOWS_NOTIFICATION" };
+  | { type: "TOGGLE_ALLOWS_NOTIFICATION" }
+  | { type: "CLEAR_DAILY_DATA" };
 
 function storeReducer(state: Store, action: StoreAction) {
   switch (action.type) {
@@ -63,7 +64,7 @@ function storeReducer(state: Store, action: StoreAction) {
       return {
         ...state,
         remainingVolume: action.payload,
-        lastUpdate: Date.now(),
+        lastUpdated: Date.now(),
       };
     }
     case "SET_WATER_PER_HOURS": {
@@ -148,6 +149,16 @@ function storeReducer(state: Store, action: StoreAction) {
       return {
         ...state,
         allowsNotification: !state.allowsNotification,
+      };
+    }
+    case "CLEAR_DAILY_DATA": {
+      return {
+        ...state,
+        volumes: [],
+        remainingVolume: state.maxVolume,
+        isSettingVolume: false,
+        lastUpdated: Date.now(),
+        quote: getRandomItem(waterQuotes),
       };
     }
     default: {

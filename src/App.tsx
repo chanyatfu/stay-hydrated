@@ -4,25 +4,18 @@ import { useRouter } from "./contexts/router-context";
 import Layout from "./page/layout";
 import SettingPage from "./page/SettingPage";
 import HistoryPage from "./page/HistoryPage";
-import { useStore } from "./stores/root-store";
 import { useEventHandler } from "./hooks/useEventHandler";
 import TipsPage from "./page/TipsPage";
 import AppInfoPage from "./page/AppInfoPage";
 import { useNotification } from "./hooks/useAlarm";
+import { useReloadWhenDayPass } from "hooks/useReloadWhenDayPass";
 
 function App() {
-  const { currentPath, setCurrentPath } = useRouter();
-  const { store, storeDispatch } = useStore();
-  const {
-    volumes,
-    maxVolume,
-    remainingVolume,
-    waterPerHours,
-    isSettingVolume,
-  } = store;
+  const { currentPath } = useRouter();
 
   useEventHandler();
   useNotification();
+  useReloadWhenDayPass();
 
   switch (currentPath) {
     case "welcome":
