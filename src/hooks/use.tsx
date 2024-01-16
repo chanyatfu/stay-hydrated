@@ -5,7 +5,7 @@ export function useReloadWhenDayPass() {
   const { store, storeDispatch } = useStore();
   const { isDatabaseLoaded, db, dailyCollection } = useDatabase();
   if (!isDatabaseLoaded || !dailyCollection) return;
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toDateString();
   let dataEntry = dailyCollection.findOne({ date: today });
 
   if (dataEntry) {

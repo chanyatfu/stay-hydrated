@@ -8,7 +8,7 @@ function getDate7DaysAgo() {
   const today = new Date();
   const pastDate = new Date(today);
   pastDate.setDate(today.getDate() - 7);
-  return pastDate.toISOString().split("T")[0]; // Format as 'YYYY-MM-DD'
+  return pastDate.toDateString(); // Format as 'YYYY-MM-DD'
 }
 
 type DatabaseEntry = {
@@ -37,7 +37,7 @@ export default function HistoryPage() {
   const { isDatabaseLoaded, db, dailyCollection } = useDatabase();
   const [recentEntries, setRecentEntries] = useState<DatabaseEntry[]>([]);
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toDateString();
 
   useEffect(() => {
     // Save data to the database whenever the store changes

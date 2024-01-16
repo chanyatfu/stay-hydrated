@@ -5,7 +5,7 @@ import { useStore } from "stores/root-store";
 import { waterQuotes } from "water-quotes";
 
 function getTodayDate() {
-  return new Date().toISOString().split("T")[0];
+  return new Date().toDateString();
 }
 
 export function useReloadWhenDayPass() {

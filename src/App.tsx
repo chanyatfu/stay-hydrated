@@ -15,7 +15,7 @@ function App() {
 
   useEventHandler();
   useNotification();
-  useReloadWhenDayPass();
+  // useReloadWhenDayPass();
 
   switch (currentPath) {
     case "welcome":

@@ -34,3 +34,8 @@ Navigate between pages using the number keys.
 - **Settings Page(3)**: Allows adjusting settings like bottle capacity and sound.
 - **Tips Page(4)**: Provides helpful tips for using the app.
 - **App Info Page(5)**: Shows version and release date of the app.
+
+
+## Known bugs
+- Need to change remaining water to consumed water, or the remaining water level won't be accurate when bottle capacity is changed
+- Need to add mechanism to reset data when date pass but app is still open

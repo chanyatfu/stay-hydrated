@@ -187,7 +187,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     if (!isDatabaseLoaded || !dailyCollection) return;
 
     // Load data from the database when the application starts
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toDateString();
     const storedData = dailyCollection.findOne({ date: today });
 
     if (storedData) {
@@ -198,7 +198,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Save data to the database whenever the store changes
     if (!isDatabaseLoaded || !dailyCollection) return;
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toDateString();
     let dataEntry = dailyCollection.findOne({ date: today });
 
     if (dataEntry) {
